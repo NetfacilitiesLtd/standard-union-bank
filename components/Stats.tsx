@@ -1,49 +1,75 @@
+import {
+  Users,
+  Globe,
+  Building2,
+  ShieldCheck,
+} from "lucide-react";
+
 export default function Stats() {
   const stats = [
     {
-      number: "250,000+",
-      label: "Happy Customers",
+      icon: Users,
+      number: "50K+",
+      title: "Happy Customers",
     },
     {
-      number: "120+",
-      label: "Branches Nationwide",
-    },
-    {
-      number: "500,000+",
-      label: "Accounts Opened",
-    },
-    {
+      icon: Globe,
       number: "25+",
-      label: "Years of Excellence",
+      title: "Countries Served",
+    },
+    {
+      icon: Building2,
+      number: "120+",
+      title: "Business Partners",
+    },
+    {
+      icon: ShieldCheck,
+      number: "24/7",
+      title: "Digital Banking",
     },
   ];
 
   return (
-    <section className="bg-blue-900 text-white py-20">
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="relative -mt-36 z-30 px-4">
+      <div className="max-w-[95%] mx-auto">
 
-        <div className="text-center mb-14">
-          <h2 className="text-4xl font-bold">
-            Banking By The Numbers
-          </h2>
+        <div className="bg-white rounded-3xl border border-gray-100 shadow-[0_20px_60px_rgba(0,0,0,0.12)] overflow-hidden">
 
-          <p className="mt-4 text-blue-100">
-            Trusted by thousands of individuals and businesses across the country.
-          </p>
-        </div>
+          <div className="grid grid-cols-2 lg:grid-cols-4">
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
-          {stats.map((stat, index) => (
-            <div key={index}>
-              <h3 className="text-5xl font-bold text-yellow-400">
-                {stat.number}
-              </h3>
+            {stats.map((stat, index) => {
+              const Icon = stat.icon;
 
-              <p className="mt-3 text-lg">
-                {stat.label}
-              </p>
-            </div>
-          ))}
+              return (
+                <div
+                  key={index}
+                  className={`flex items-center gap-5 px-8 py-8 ${
+                    index !== stats.length - 1
+                      ? "lg:border-r border-gray-200"
+                      : ""
+                  }`}
+                >
+                  <Icon
+                    size={34}
+                    className="text-red-600 flex-shrink-0"
+                  />
+
+                  <div>
+                    <h2 className="text-4xl font-bold text-slate-900 leading-none">
+                      {stat.number}
+                    </h2>
+
+                    <p className="mt-2 text-gray-600 font-medium">
+                      {stat.title}
+                    </p>
+                  </div>
+
+                </div>
+              );
+            })}
+
+          </div>
+
         </div>
 
       </div>

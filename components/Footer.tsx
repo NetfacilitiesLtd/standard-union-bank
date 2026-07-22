@@ -1,131 +1,146 @@
 import Link from "next/link";
-import {
-  Globe,
-  Building2,
-  Phone,
-  Mail,
-  MapPin,
-} from "lucide-react";
+import Image from "next/image";
+import { MapPin, Phone, Mail } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-slate-950 text-gray-300">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+    <footer className="bg-slate-950 text-white">
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
+      <div className="max-w-7xl mx-auto px-6 py-20">
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr] gap-16 lg:gap-20">
 
           {/* Company */}
-          <div>
-            <h2 className="text-2xl font-bold text-white mb-4">
-              Standard Union Bank
-            </h2>
 
-            <p className="text-gray-400 leading-7">
-              Providing secure, innovative and reliable banking solutions
-              for individuals, businesses and corporate organizations.
+          <div>
+
+            <p className="uppercase tracking-[4px] text-red-500 text-sm font-semibold mb-4">
+              Standard Union Bank
             </p>
 
-            <div className="flex gap-4 mt-6">
+            <Image
+              src="/logos/logo.png"
+              alt="Standard Union Bank"
+              width={180}
+              height={60}
+              className="bg-white rounded-xl p-2"
+            />
 
-              <a
-                href="#"
-                className="bg-blue-700 hover:bg-blue-800 p-2 rounded-full transition"
-              >
-                <Globe size={18} />
-              </a>
-
-              <a
-                href="#"
-                className="bg-blue-700 hover:bg-blue-800 p-2 rounded-full transition"
-              >
-                <Building2 size={18} />
-              </a>
-
-              <a
-                href="#"
-                className="bg-blue-700 hover:bg-blue-800 p-2 rounded-full transition"
-              >
-                <Phone size={18} />
-              </a>
-
-              <a
-                href="#"
-                className="bg-blue-700 hover:bg-blue-800 p-2 rounded-full transition"
-              >
-                <Mail size={18} />
-              </a>
-
-            </div>
-          </div>
-
-          {/* Quick Links */}
-          <div>
-
-            <h3 className="text-xl font-semibold text-white mb-5">
-              Quick Links
-            </h3>
-
-            <ul className="space-y-3">
-
-              <li><Link href="/">Home</Link></li>
-
-              <li><Link href="/about">About</Link></li>
-
-              <li><Link href="/services">Services</Link></li>
-
-              <li><Link href="/contact">Contact</Link></li>
-
-              <li><Link href="/login">Login</Link></li>
-
-            </ul>
+            <p className="mt-6 text-slate-400 leading-8 max-w-sm">
+              Delivering secure, innovative and trusted banking
+              solutions for individuals, businesses and
+              international clients worldwide.
+            </p>
 
           </div>
 
           {/* Banking */}
+
           <div>
 
-            <h3 className="text-xl font-semibold text-white mb-5">
+            <h3 className="text-lg font-semibold mb-6">
               Banking
             </h3>
 
-            <ul className="space-y-3">
+            <div className="flex flex-col gap-4 text-slate-400">
 
-              <li>Personal Banking</li>
+              <Link href="/personal-banking" className="hover:text-white transition">
+                Personal Banking
+              </Link>
 
-              <li>Business Banking</li>
+              <Link href="/business-banking" className="hover:text-white transition">
+                Business Banking
+              </Link>
 
-              <li>Loans</li>
+              <Link href="/international" className="hover:text-white transition">
+                International Banking
+              </Link>
 
-              <li>Mobile Banking</li>
+              <Link href="/cards" className="hover:text-white transition">
+                Cards & Payments
+              </Link>
 
-              <li>Investments</li>
+            </div>
 
-            </ul>
+          </div>
+
+          {/* Quick Links */}
+
+          <div>
+
+            <h3 className="text-lg font-semibold mb-6">
+              Quick Links
+            </h3>
+
+            <div className="flex flex-col gap-4 text-slate-400">
+
+              <Link href="/open-account" className="hover:text-white transition">
+                Open an Account
+              </Link>
+
+              <Link href="/login" className="hover:text-white transition">
+                Internet Banking
+              </Link>
+
+              <Link href="/security" className="hover:text-white transition">
+                Security Center
+              </Link>
+
+              <Link href="/contact" className="hover:text-white transition">
+                Contact Us
+              </Link>
+
+            </div>
 
           </div>
 
           {/* Contact */}
+
           <div>
 
-            <h3 className="text-xl font-semibold text-white mb-5">
-              Contact Us
+            <h3 className="text-lg font-semibold mb-6">
+              Contact
             </h3>
 
-            <div className="space-y-5">
+            <div className="space-y-5 text-slate-400">
 
-              <div className="flex gap-3">
-                <MapPin className="text-blue-500" />
-                <span>Accra, Ghana</span>
+              <div className="flex items-start gap-3">
+
+                <MapPin
+                  size={18}
+                  className="text-red-500 mt-1 flex-shrink-0"
+                />
+
+                <span>
+                  United Kingdom
+                </span>
+
               </div>
 
-              <div className="flex gap-3">
-                <Phone className="text-blue-500" />
-                <span>+233 XX XXX XXXX</span>
+              <div className="flex items-center gap-3">
+
+                <Phone
+                  size={18}
+                  className="text-red-500 flex-shrink-0"
+                />
+
+                <span>
+                  +44 XX XXXX XXXX
+                </span>
+
               </div>
 
-              <div className="flex gap-3">
-                <Mail className="text-blue-500" />
-                <span>info@standardunionbank.com</span>
+              <div className="flex items-center gap-3">
+
+                <Mail
+                  size={18}
+                  className="text-red-500 flex-shrink-0"
+                />
+
+                <span>
+                  info@standardunionbank.com
+                </span>
+
               </div>
 
             </div>
@@ -134,21 +149,47 @@ export default function Footer() {
 
         </div>
 
-        <hr className="border-slate-700 my-10" />
+        {/* Bottom */}
 
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="border-t border-slate-800 mt-16 pt-8">
 
-          <p className="text-gray-500">
-            © 2026 Standard Union Bank. All Rights Reserved.
-          </p>
+          <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
 
-          <p className="text-gray-500">
-            Secure Banking • Trusted Worldwide
-          </p>
+            <p className="text-slate-500 text-sm">
+              © {new Date().getFullYear()} Standard Union Bank. All Rights Reserved.
+            </p>
+
+            <div className="flex flex-wrap justify-center gap-8 text-sm">
+
+              <Link
+                href="/privacy"
+                className="text-slate-500 hover:text-white transition"
+              >
+                Privacy Policy
+              </Link>
+
+              <Link
+                href="/terms"
+                className="text-slate-500 hover:text-white transition"
+              >
+                Terms & Conditions
+              </Link>
+
+              <Link
+                href="/security"
+                className="text-slate-500 hover:text-white transition"
+              >
+                Security
+              </Link>
+
+            </div>
+
+          </div>
 
         </div>
 
       </div>
+
     </footer>
   );
 }

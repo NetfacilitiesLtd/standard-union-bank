@@ -1,71 +1,47 @@
-import Image from "next/image";
-import { Smartphone, ShieldCheck, CreditCard, BellRing } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 export default function MobileBanking() {
   return (
-    <section className="py-20 bg-blue-50">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 grid md:grid-cols-2 gap-14 items-center">
+    <section className="relative overflow-hidden bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 py-28">
 
-        <div>
-          <Image
-            src="/images/mobile-banking.jpg"
-            alt="Mobile Banking"
-            width={600}
-            height={600}
-            className="rounded-2xl shadow-xl"
-          />
-        </div>
+      {/* Background Glow */}
 
-        <div>
-          <h2 className="text-4xl font-bold text-gray-900 mb-6">
-            Bank Anytime, Anywhere
-          </h2>
+      <div className="absolute inset-0">
 
-          <p className="text-gray-600 mb-8">
-            Access your accounts securely wherever you are.
-            Our mobile banking platform lets you manage your finances
-            24/7 with just a few taps.
-          </p>
-
-          <div className="space-y-5">
-
-            <div className="flex items-center gap-4">
-              <Smartphone className="text-blue-700" size={28} />
-              <span className="text-gray-700">
-                View balances and transactions instantly
-              </span>
-            </div>
-
-            <div className="flex items-center gap-4">
-              <CreditCard className="text-blue-700" size={28} />
-              <span className="text-gray-700">
-                Transfer money safely
-              </span>
-            </div>
-
-            <div className="flex items-center gap-4">
-              <ShieldCheck className="text-blue-700" size={28} />
-              <span className="text-gray-700">
-                Biometric login with Face ID & Fingerprint
-              </span>
-            </div>
-
-            <div className="flex items-center gap-4">
-              <BellRing className="text-blue-700" size={28} />
-              <span className="text-gray-700">
-                Instant transaction alerts
-              </span>
-            </div>
-
-          </div>
-
-          <button className="mt-10 bg-blue-700 hover:bg-blue-800 text-white px-8 py-4 rounded-lg transition">
-            Download Mobile App
-          </button>
-
-        </div>
+        <div className="absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-600/20 blur-3xl"></div>
 
       </div>
+
+      <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
+
+        <p className="uppercase tracking-[6px] text-red-400 text-sm font-semibold">
+          Start Your Banking Journey
+        </p>
+
+        <h2 className="mt-6 text-5xl lg:text-6xl font-bold text-white leading-tight">
+          Ready to Bank
+          <br />
+          With Confidence?
+        </h2>
+
+        <p className="mt-8 text-xl text-slate-300 leading-9 max-w-3xl mx-auto">
+          Open an account today and experience secure,
+          modern international banking designed for
+          individuals, businesses and global clients.
+        </p>
+
+        <Link
+          href="/open-account"
+          className="inline-flex items-center gap-3 mt-12 bg-red-600 hover:bg-red-700 text-white font-semibold px-10 py-5 rounded-xl transition-all duration-300 hover:gap-5 shadow-2xl"
+        >
+          Open Account
+
+          <ArrowRight size={20} />
+        </Link>
+
+      </div>
+
     </section>
   );
 }
