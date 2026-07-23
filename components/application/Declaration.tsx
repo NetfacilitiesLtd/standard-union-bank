@@ -1,9 +1,18 @@
 "use client";
 
-export default function Declaration() {
+type DeclarationProps = {
+  formData: {
+    agreedToTerms: boolean;
+  };
+  setFormData: React.Dispatch<React.SetStateAction<any>>;
+};
+
+export default function Declaration({
+  formData,
+  setFormData,
+}: DeclarationProps) {
   return (
     <section className="bg-white rounded-3xl shadow-sm border border-slate-200 p-8">
-
       <div className="mb-8">
         <h2 className="text-3xl font-bold text-slate-900">
           Declaration
@@ -19,6 +28,13 @@ export default function Declaration() {
         <label className="flex items-start gap-3">
           <input
             type="checkbox"
+            checked={formData.agreedToTerms}
+            onChange={(e) =>
+              setFormData((prev: any) => ({
+                ...prev,
+                agreedToTerms: e.target.checked,
+              }))
+            }
             className="mt-1 h-5 w-5 accent-red-600"
           />
 

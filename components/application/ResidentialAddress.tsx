@@ -1,9 +1,31 @@
 "use client";
 
-export default function ResidentialAddress() {
+type ResidentialAddressProps = {
+  formData: {
+    residentialAddress: string;
+    country: string;
+    state: string;
+    city: string;
+    postalCode: string;
+  };
+  setFormData: React.Dispatch<React.SetStateAction<any>>;
+};
+
+export default function ResidentialAddress({
+  formData,
+  setFormData,
+}: ResidentialAddressProps) {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setFormData((prev: any) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
   return (
     <section className="bg-white rounded-3xl shadow-sm border border-slate-200 p-8">
-
       <div className="mb-8">
         <h2 className="text-3xl font-bold text-slate-900">
           Residential Address
@@ -25,24 +47,30 @@ export default function ResidentialAddress() {
 
           <input
             type="text"
+            name="residentialAddress"
+            value={formData.residentialAddress}
+            onChange={handleChange}
             placeholder="House Number, Street Name"
             className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:ring-2 focus:ring-red-500"
           />
         </div>
 
-       {/* Country */}
+        {/* Country */}
 
-<div>
-  <label className="block text-sm font-semibold text-slate-700 mb-2">
-    Country <span className="text-red-600">*</span>
-  </label>
+        <div>
+          <label className="block text-sm font-semibold text-slate-700 mb-2">
+            Country <span className="text-red-600">*</span>
+          </label>
 
-  <input
-    type="text"
-    placeholder="Enter your country"
-    className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:ring-2 focus:ring-red-500"
-  />
-</div>
+          <input
+            type="text"
+            name="country"
+            value={formData.country}
+            onChange={handleChange}
+            placeholder="Enter your country"
+            className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:ring-2 focus:ring-red-500"
+          />
+        </div>
 
         {/* State */}
 
@@ -53,6 +81,9 @@ export default function ResidentialAddress() {
 
           <input
             type="text"
+            name="state"
+            value={formData.state}
+            onChange={handleChange}
             placeholder="State or Province"
             className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:ring-2 focus:ring-red-500"
           />
@@ -67,6 +98,9 @@ export default function ResidentialAddress() {
 
           <input
             type="text"
+            name="city"
+            value={formData.city}
+            onChange={handleChange}
             placeholder="City"
             className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:ring-2 focus:ring-red-500"
           />
@@ -81,13 +115,15 @@ export default function ResidentialAddress() {
 
           <input
             type="text"
+            name="postalCode"
+            value={formData.postalCode}
+            onChange={handleChange}
             placeholder="Postal Code"
             className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:ring-2 focus:ring-red-500"
           />
         </div>
 
       </div>
-
     </section>
   );
 }

@@ -1,9 +1,34 @@
 "use client";
 
-export default function PersonalInformation() {
+type PersonalInformationProps = {
+  formData: {
+    firstName: string;
+    middleName: string;
+    lastName: string;
+    dateOfBirth: string;
+    gender: string;
+    nationality: string;
+    email: string;
+    phoneNumber: string;
+  };
+  setFormData: React.Dispatch<React.SetStateAction<any>>;
+};
+
+export default function PersonalInformation({
+  formData,
+  setFormData,
+}: PersonalInformationProps) {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    setFormData((prev: any) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
   return (
     <section className="bg-white rounded-3xl shadow-sm border border-slate-200 p-8">
-
       <div className="mb-8">
         <h2 className="text-3xl font-bold text-slate-900">
           Personal Information
@@ -16,7 +41,6 @@ export default function PersonalInformation() {
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">
-
         {/* First Name */}
 
         <div>
@@ -26,6 +50,9 @@ export default function PersonalInformation() {
 
           <input
             type="text"
+            name="firstName"
+            value={formData.firstName}
+            onChange={handleChange}
             placeholder="Enter your first name"
             className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:ring-2 focus:ring-red-500"
           />
@@ -40,6 +67,9 @@ export default function PersonalInformation() {
 
           <input
             type="text"
+            name="middleName"
+            value={formData.middleName}
+            onChange={handleChange}
             placeholder="Optional"
             className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:ring-2 focus:ring-red-500"
           />
@@ -54,6 +84,9 @@ export default function PersonalInformation() {
 
           <input
             type="text"
+            name="lastName"
+            value={formData.lastName}
+            onChange={handleChange}
             placeholder="Enter your last name"
             className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:ring-2 focus:ring-red-500"
           />
@@ -68,6 +101,9 @@ export default function PersonalInformation() {
 
           <input
             type="date"
+            name="dateOfBirth"
+            value={formData.dateOfBirth}
+            onChange={handleChange}
             className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:ring-2 focus:ring-red-500"
           />
         </div>
@@ -80,6 +116,9 @@ export default function PersonalInformation() {
           </label>
 
           <select
+            name="gender"
+            value={formData.gender}
+            onChange={handleChange}
             className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:ring-2 focus:ring-red-500"
           >
             <option value="">Select Gender</option>
@@ -91,17 +130,20 @@ export default function PersonalInformation() {
 
         {/* Nationality */}
 
-<div>
-  <label className="block text-sm font-semibold text-slate-700 mb-2">
-    Nationality <span className="text-red-600">*</span>
-  </label>
+        <div>
+          <label className="block text-sm font-semibold text-slate-700 mb-2">
+            Nationality <span className="text-red-600">*</span>
+          </label>
 
-  <input
-    type="text"
-    placeholder="e.g. Ghanaian"
-    className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:ring-2 focus:ring-red-500"
-  />
-</div>
+          <input
+            type="text"
+            name="nationality"
+            value={formData.nationality}
+            onChange={handleChange}
+            placeholder="e.g. Ghanaian"
+            className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:ring-2 focus:ring-red-500"
+          />
+        </div>
 
         {/* Email */}
 
@@ -112,6 +154,9 @@ export default function PersonalInformation() {
 
           <input
             type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
             placeholder="example@email.com"
             className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:ring-2 focus:ring-red-500"
           />
@@ -126,13 +171,14 @@ export default function PersonalInformation() {
 
           <input
             type="tel"
+            name="phoneNumber"
+            value={formData.phoneNumber}
+            onChange={handleChange}
             placeholder="+233 XX XXX XXXX"
             className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:ring-2 focus:ring-red-500"
           />
         </div>
-
       </div>
-
     </section>
   );
 }

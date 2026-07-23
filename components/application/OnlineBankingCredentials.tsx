@@ -1,9 +1,33 @@
 "use client";
 
-export default function OnlineBankingCredentials() {
+import { useState } from "react";
+
+type OnlineBankingCredentialsProps = {
+  formData: {
+    password: string;
+    pin: string;
+  };
+  setFormData: React.Dispatch<React.SetStateAction<any>>;
+};
+
+export default function OnlineBankingCredentials({
+  formData,
+  setFormData,
+}: OnlineBankingCredentialsProps) {
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [confirmPin, setConfirmPin] = useState("");
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setFormData((prev: any) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
   return (
     <section className="bg-white rounded-3xl shadow-sm border border-slate-200 p-8">
-
       <div className="mb-8">
         <h2 className="text-3xl font-bold text-slate-900">
           Online Banking Credentials
@@ -26,6 +50,9 @@ export default function OnlineBankingCredentials() {
 
           <input
             type="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
             placeholder="Create a secure password"
             className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:ring-2 focus:ring-red-500"
           />
@@ -40,6 +67,8 @@ export default function OnlineBankingCredentials() {
 
           <input
             type="password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
             placeholder="Re-enter your password"
             className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:ring-2 focus:ring-red-500"
           />
@@ -54,6 +83,9 @@ export default function OnlineBankingCredentials() {
 
           <input
             type="password"
+            name="pin"
+            value={formData.pin}
+            onChange={handleChange}
             maxLength={6}
             placeholder="Enter 6-digit PIN"
             className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:ring-2 focus:ring-red-500"
@@ -69,6 +101,8 @@ export default function OnlineBankingCredentials() {
 
           <input
             type="password"
+            value={confirmPin}
+            onChange={(e) => setConfirmPin(e.target.value)}
             maxLength={6}
             placeholder="Confirm your 6-digit PIN"
             className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:ring-2 focus:ring-red-500"
@@ -84,7 +118,6 @@ export default function OnlineBankingCredentials() {
           account application has been approved.
         </p>
       </div>
-
     </section>
   );
 }

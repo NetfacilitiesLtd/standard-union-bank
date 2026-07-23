@@ -1,9 +1,30 @@
 "use client";
 
-export default function AccountInformation() {
+type AccountInformationProps = {
+  formData: {
+    accountType: string;
+    preferredCurrency: string;
+    occupation: string;
+    employer: string;
+  };
+  setFormData: React.Dispatch<React.SetStateAction<any>>;
+};
+
+export default function AccountInformation({
+  formData,
+  setFormData,
+}: AccountInformationProps) {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    setFormData((prev: any) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
   return (
     <section className="bg-white rounded-3xl shadow-sm border border-slate-200 p-8">
-
       <div className="mb-8">
         <h2 className="text-3xl font-bold text-slate-900">
           Account Information
@@ -25,6 +46,9 @@ export default function AccountInformation() {
           </label>
 
           <select
+            name="accountType"
+            value={formData.accountType}
+            onChange={handleChange}
             className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:ring-2 focus:ring-red-500"
           >
             <option value="">Select Account Type</option>
@@ -43,6 +67,9 @@ export default function AccountInformation() {
           </label>
 
           <select
+            name="preferredCurrency"
+            value={formData.preferredCurrency}
+            onChange={handleChange}
             className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:ring-2 focus:ring-red-500"
           >
             <option value="">Select Currency</option>
@@ -62,6 +89,9 @@ export default function AccountInformation() {
 
           <input
             type="text"
+            name="occupation"
+            value={formData.occupation}
+            onChange={handleChange}
             placeholder="Enter your occupation"
             className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:ring-2 focus:ring-red-500"
           />
@@ -76,13 +106,15 @@ export default function AccountInformation() {
 
           <input
             type="text"
+            name="employer"
+            value={formData.employer}
+            onChange={handleChange}
             placeholder="Employer or business name"
             className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:ring-2 focus:ring-red-500"
           />
         </div>
 
       </div>
-
     </section>
   );
 }

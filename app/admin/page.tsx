@@ -7,51 +7,91 @@ import {
   CreditCard,
 } from "lucide-react";
 
-const stats = [
-  {
-    title: "Total Customers",
-    value: "2,458",
-    icon: Users,
-  },
-  {
-    title: "Total Accounts",
-    value: "3,912",
-    icon: Landmark,
-  },
-  {
-    title: "Total Deposits",
-    value: "$12.8M",
-    icon: DollarSign,
-  },
-  {
-    title: "Today's Transactions",
-    value: "684",
-    icon: ArrowLeftRight,
-  },
-];
+import { prisma } from "@/lib/prisma";
+import ApplicationsTable from "@/components/admin/ApplicationsTable";
 
-export default function AdminDashboard() {
+export default async function AdminDashboard() {
+  const [
+    totalApplications,
+    pendingApplications,
+    approvedApplications,
+    rejectedApplications,
+    applications,
+  ] = await Promise.all([
+    prisma.application.count(),
+    prisma.application.count({
+      where: {
+        status: "Pending",
+      },
+    }),
+    prisma.application.count({
+      where: {
+        status: "Approved",
+      },
+    }),
+    prisma.application.count({
+      where: {
+        status: "Rejected",
+      },
+    }),
+    prisma.application.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+      take: 10,
+      select: {
+        id: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        accountType: true,
+        preferredCurrency: true,
+        status: true,
+      },
+    }),
+  ]);
+
+  const stats = [
+    {
+      title: "Applications",
+      value: totalApplications.toString(),
+      icon: Users,
+    },
+    {
+      title: "Pending",
+      value: pendingApplications.toString(),
+      icon: Landmark,
+    },
+    {
+      title: "Approved",
+      value: approvedApplications.toString(),
+      icon: DollarSign,
+    },
+    {
+      title: "Rejected",
+      value: rejectedApplications.toString(),
+      icon: ArrowLeftRight,
+    },
+  ];
+
   return (
     <div className="space-y-8">
 
       {/* Welcome */}
 
       <div>
-
         <h1 className="text-4xl font-bold text-slate-900">
           Bank Operations Dashboard
         </h1>
 
         <p className="text-slate-500 mt-2">
-          Monitor customers, accounts, transactions, and bank performance.
+          Monitor customers, applications and bank performance.
         </p>
-
       </div>
 
       {/* Statistics */}
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-
         {stats.map((stat) => {
           const Icon = stat.icon;
 
@@ -61,9 +101,7 @@ export default function AdminDashboard() {
               className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm"
             >
               <div className="flex justify-between items-center">
-
                 <div>
-
                   <p className="text-slate-500 text-sm">
                     {stat.title}
                   </p>
@@ -71,24 +109,18 @@ export default function AdminDashboard() {
                   <h2 className="text-3xl font-bold mt-2">
                     {stat.value}
                   </h2>
-
                 </div>
 
                 <div className="w-14 h-14 rounded-2xl bg-red-100 flex items-center justify-center">
-
                   <Icon
                     size={28}
                     className="text-red-600"
                   />
-
                 </div>
-
               </div>
-
             </div>
           );
         })}
-
       </div>
 
       {/* Quick Actions */}
@@ -173,38 +205,9 @@ export default function AdminDashboard() {
 
       </div>
 
-      {/* Recent Activity */}
+      {/* Live Applications */}
 
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm">
-
-        <div className="border-b border-slate-200 px-6 py-4">
-
-          <h2 className="text-xl font-semibold">
-            Recent Activity
-          </h2>
-
-        </div>
-
-        <div className="divide-y divide-slate-200">
-
-          {[
-            "New customer account created.",
-            "Business account approved.",
-            "Debit card issued to customer.",
-            "Large transfer awaiting approval.",
-            "Savings account opened.",
-          ].map((item, index) => (
-            <div
-              key={index}
-              className="px-6 py-4 hover:bg-slate-50 transition"
-            >
-              {item}
-            </div>
-          ))}
-
-        </div>
-
-      </div>
+      <ApplicationsTable applications={applications} />
 
     </div>
   );
