@@ -1,64 +1,92 @@
 "use client";
 
-import { Bell, Search, UserCircle } from "lucide-react";
+import {
+  Bell,
+  Search,
+  ChevronDown,
+} from "lucide-react";
 
 export default function Header() {
   return (
-    <header className="bg-white shadow-sm border-b border-gray-200 px-8 py-5">
+    <header className="bg-white border-b border-slate-200">
 
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between px-10 py-6">
 
         {/* Left */}
-        <div>
-          <h2 className="text-3xl font-bold text-gray-800">
-            Good Afternoon,
-          </h2>
 
-          <p className="text-gray-500 mt-1">
-            Welcome back to Standard Union Bank.
+        <div>
+
+          <p className="text-slate-500 text-sm">
+            Welcome Back,
           </p>
+
+          <h1 className="text-3xl font-bold text-slate-900 mt-1">
+            John Doe
+          </h1>
+
+          <p className="text-slate-500 mt-2">
+            Manage your accounts and banking activities.
+          </p>
+
         </div>
 
         {/* Right */}
-        <div className="flex items-center gap-4">
 
-          <div className="relative hidden md:block">
+        <div className="flex items-center gap-5">
+
+          {/* Search */}
+
+          <div className="hidden lg:flex items-center bg-slate-100 rounded-xl px-4 py-3 w-80">
+
             <Search
-              className="absolute left-3 top-3 text-gray-400"
               size={18}
+              className="text-slate-400"
             />
 
             <input
               type="text"
               placeholder="Search..."
-              className="pl-10 pr-4 py-2 border rounded-lg outline-none focus:border-blue-600 w-64"
+              className="bg-transparent outline-none ml-3 w-full text-sm"
             />
+
           </div>
 
-          <button className="relative p-2 hover:bg-gray-100 rounded-lg transition">
-            <Bell size={22} />
+          {/* Notification */}
 
-            <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-red-500"></span>
+          <button className="relative w-12 h-12 rounded-xl bg-slate-100 hover:bg-slate-200 transition flex items-center justify-center">
+
+            <Bell size={20} />
+
+            <span className="absolute top-3 right-3 w-2.5 h-2.5 bg-red-600 rounded-full"></span>
+
           </button>
 
-          <div className="flex items-center gap-3">
+          {/* User */}
 
-            <UserCircle
-              size={42}
-              className="text-blue-700"
-            />
+          <button className="flex items-center gap-3 bg-slate-100 rounded-xl px-4 py-2 hover:bg-slate-200 transition">
 
-            <div className="hidden md:block">
-              <p className="font-semibold">
+            <div className="w-11 h-11 rounded-full bg-red-600 flex items-center justify-center text-white font-bold text-lg">
+              J
+            </div>
+
+            <div className="hidden lg:block text-left">
+
+              <p className="font-semibold text-slate-900">
                 John Doe
               </p>
 
-              <p className="text-sm text-gray-500">
-                Premium Customer
+              <p className="text-sm text-slate-500">
+                Personal Account
               </p>
+
             </div>
 
-          </div>
+            <ChevronDown
+              size={18}
+              className="text-slate-500"
+            />
+
+          </button>
 
         </div>
 

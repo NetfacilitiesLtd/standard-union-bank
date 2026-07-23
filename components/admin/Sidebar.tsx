@@ -5,11 +5,11 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
-  Wallet,
-  ArrowLeftRight,
+  Users,
+  Landmark,
   ReceiptText,
   CreditCard,
-  PiggyBank,
+  BarChart3,
   Settings,
   LogOut,
 } from "lucide-react";
@@ -18,37 +18,37 @@ const menuItems = [
   {
     title: "Dashboard",
     icon: LayoutDashboard,
-    href: "/dashboard",
+    href: "/admin",
   },
   {
-    title: "My Accounts",
-    icon: Wallet,
-    href: "/dashboard/accounts",
+    title: "Customers",
+    icon: Users,
+    href: "/admin/customers",
   },
   {
-    title: "Transfer Money",
-    icon: ArrowLeftRight,
-    href: "/dashboard/transfers",
+    title: "Accounts",
+    icon: Landmark,
+    href: "/admin/accounts",
   },
   {
     title: "Transactions",
     icon: ReceiptText,
-    href: "/dashboard/transactions",
+    href: "/admin/transactions",
   },
   {
     title: "Cards",
     icon: CreditCard,
-    href: "/dashboard/cards",
+    href: "/admin/cards",
   },
   {
-    title: "Investments",
-    icon: PiggyBank,
-    href: "/dashboard/investments",
+    title: "Reports",
+    icon: BarChart3,
+    href: "/admin/reports",
   },
   {
     title: "Settings",
     icon: Settings,
-    href: "/dashboard/settings",
+    href: "/admin/settings",
   },
 ];
 
@@ -75,7 +75,7 @@ export default function Sidebar() {
       <nav className="flex-1 px-5 py-8">
 
         <p className="uppercase tracking-[4px] text-xs text-slate-400 mb-6 px-4">
-          Main Menu
+          Admin Panel
         </p>
 
         <div className="space-y-2">
@@ -85,7 +85,7 @@ export default function Sidebar() {
 
             const isActive =
               pathname === item.href ||
-              (item.href !== "/dashboard" &&
+              (item.href !== "/admin" &&
                 pathname.startsWith(item.href));
 
             return (
@@ -103,7 +103,6 @@ export default function Sidebar() {
                 <span className="font-medium">
                   {item.title}
                 </span>
-
               </Link>
             );
           })}

@@ -1,0 +1,47 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  
+}
+
+model Application {
+  id                 String   @id @default(cuid())
+  firstName          String
+  middleName         String?
+  lastName           String
+  dateOfBirth        DateTime
+  gender             String
+  email              String   @unique
+  phoneNumber        String
+
+  residentialAddress String
+  country            String
+  state              String
+  city               String
+  postalCode         String
+
+  idType             String
+  idNumber           String
+  idExpiryDate       DateTime
+  nationality        String
+
+  accountType        String
+  preferredCurrency  String
+  occupation         String
+  employer           String?
+
+  password           String
+  pin                String
+
+  passportPhoto      String?
+  governmentId       String?
+
+  status             String   @default("Pending")
+
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+}
