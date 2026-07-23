@@ -12,6 +12,7 @@ import {
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import CustomerHeader from "@/components/customer/CustomerHeader";
+import CustomerInformation from "@/components/customer/CustomerInformation";
 export default async function CustomerDetails({
   params,
 }: {
@@ -41,102 +42,7 @@ export default async function CustomerDetails({
 
       {/* Customer Information */}
 
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-8">
-
-        <div className="flex items-center gap-6">
-
-          <div className="w-24 h-24 rounded-full bg-red-100 flex items-center justify-center">
-
-            <User
-              size={45}
-              className="text-red-600"
-            />
-
-          </div>
-
-          <div>
-
-            <h2 className="text-3xl font-bold">
-              John Doe
-            </h2>
-
-            <p className="text-green-600 font-semibold mt-1">
-              Active Customer
-            </p>
-
-          </div>
-
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-8 mt-10">
-
-          <div className="flex items-center gap-4">
-
-            <Mail className="text-red-600" />
-
-            <div>
-
-              <p className="text-sm text-slate-500">
-                Email
-              </p>
-
-              <p>john@example.com</p>
-
-            </div>
-
-          </div>
-
-          <div className="flex items-center gap-4">
-
-            <Phone className="text-red-600" />
-
-            <div>
-
-              <p className="text-sm text-slate-500">
-                Phone
-              </p>
-
-              <p>+1 (555) 123-4567</p>
-
-            </div>
-
-          </div>
-
-          <div className="flex items-center gap-4">
-
-            <MapPin className="text-red-600" />
-
-            <div>
-
-              <p className="text-sm text-slate-500">
-                Address
-              </p>
-
-              <p>New York, USA</p>
-
-            </div>
-
-          </div>
-
-          <div className="flex items-center gap-4">
-
-            <ShieldCheck className="text-red-600" />
-
-            <div>
-
-              <p className="text-sm text-slate-500">
-                KYC Status
-              </p>
-
-              <p>Verified</p>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
+      <CustomerInformation customer={customer} />
 
       {/* Summary Cards */}
 
