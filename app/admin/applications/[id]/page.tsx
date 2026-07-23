@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
+import { approveApplication } from "../../actions";
 
 interface PageProps {
   params: Promise<{
@@ -13,20 +14,18 @@ export default async function ApplicationDetailsPage({
   const { id } = await params;
 
   const application = await prisma.application.findUnique({
-  where: {
-    id,
-  },
-});
+    where: {
+      id,
+    },
+  });
 
-if (!application) {
-  notFound();
-}
+  if (!application) {
+    notFound();
+  }
 
   return (
     <div className="space-y-8">
-
       <div className="bg-white rounded-2xl border border-slate-200 p-8">
-
         <h1 className="text-3xl font-bold mb-2">
           Customer Application
         </h1>
@@ -34,11 +33,9 @@ if (!application) {
         <p className="text-slate-500">
           Review the submitted application.
         </p>
-
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">
-
         <div className="bg-white rounded-2xl border border-slate-200 p-6">
           <h2 className="font-bold text-lg mb-4">
             Personal Information
@@ -85,21 +82,27 @@ if (!application) {
           <p><strong>Employer:</strong> {application.employer || "N/A"}</p>
           <p><strong>Status:</strong> {application.status}</p>
         </div>
-
       </div>
 
       <div className="flex gap-4">
-
-        <button className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold">
-          Approve Application
-        </button>
+        <form
+          action={async () => {
+            "use server";
+            await approveApplication(application.id);
+          }}
+        >
+          <button
+            type="submit"
+            className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold"
+          >
+            Approve Application
+          </button>
+        </form>
 
         <button className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold">
           Reject Application
         </button>
-
       </div>
-
     </div>
   );
 }

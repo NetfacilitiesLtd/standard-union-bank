@@ -9,7 +9,9 @@ import {
   Pencil,
   ShieldCheck,
 } from "lucide-react";
-
+import { notFound } from "next/navigation";
+import { prisma } from "@/lib/prisma";
+import CustomerHeader from "@/components/customer/CustomerHeader";
 export default async function CustomerDetails({
   params,
 }: {
@@ -17,34 +19,25 @@ export default async function CustomerDetails({
 }) {
   const { customerId } = await params;
 
+  const customer = await prisma.customer.findUnique({
+    where: {
+      id: customerId,
+    },
+    include: {
+      application: true,
+    },
+  });
+
+  if (!customer) {
+    notFound();
+  }
+
   return (
     <div className="space-y-8">
 
-      {/* Header */}
+      <CustomerHeader customerId={customer.id} />
 
-      <div className="flex justify-between items-start">
 
-        <div>
-
-          <h1 className="text-4xl font-bold text-slate-900">
-            Customer Profile
-          </h1>
-
-          <p className="text-slate-500 mt-2">
-            Customer ID: {customerId}
-          </p>
-
-        </div>
-
-        <button className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-xl flex items-center gap-2 transition">
-
-          <Pencil size={18} />
-
-          Edit Customer
-
-        </button>
-
-      </div>
 
       {/* Customer Information */}
 
