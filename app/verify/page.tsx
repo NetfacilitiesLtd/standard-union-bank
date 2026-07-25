@@ -1,6 +1,50 @@
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 export default function VerifyPage() {
+  const router = useRouter();
+
+  const [pin, setPin] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    if (pin.length !== 6) {
+      alert("Please enter your 6-digit PIN.");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const response = await fetch("/api/verify", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ pin }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        alert(result.message);
+        return;
+      }
+
+      router.push("/dashboard");
+    } catch (error) {
+      console.error(error);
+      alert("Verification failed.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <main className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8">
@@ -15,57 +59,36 @@ export default function VerifyPage() {
           </p>
         </div>
 
-        <div className="mb-8 text-center">
-          <h2 className="text-xl font-semibold text-gray-800">
-            Welcome Back
-          </h2>
+        <form onSubmit={handleSubmit}>
 
-          <p className="text-gray-600 mt-2">
-            Please enter your 6-digit Security PIN.
-          </p>
-        </div>
+          <div className="mb-8 text-center">
+            <h2 className="text-xl font-semibold text-gray-800">
+              Welcome Back
+            </h2>
 
-        <div className="flex justify-between gap-2 mb-8">
-          <input
-            type="password"
-            maxLength={1}
-            className="w-12 h-14 text-center text-2xl font-bold border-2 border-gray-300 rounded-lg focus:border-blue-600 focus:ring-2 focus:ring-blue-100 outline-none transition"
-          />
+            <p className="text-gray-600 mt-2">
+              Please enter your 6-digit Security PIN.
+            </p>
+          </div>
 
           <input
             type="password"
-            maxLength={1}
-            className="w-12 h-14 text-center text-2xl font-bold border-2 border-gray-300 rounded-lg focus:border-blue-600 focus:ring-2 focus:ring-blue-100 outline-none transition"
+            maxLength={6}
+            value={pin}
+            onChange={(e) => setPin(e.target.value)}
+            className="w-full border-2 border-gray-300 rounded-lg text-center text-2xl font-bold py-4 tracking-[12px] mb-8 outline-none focus:border-blue-600"
+            placeholder="••••••"
           />
 
-          <input
-            type="password"
-            maxLength={1}
-            className="w-12 h-14 text-center text-2xl font-bold border-2 border-gray-300 rounded-lg focus:border-blue-600 focus:ring-2 focus:ring-blue-100 outline-none transition"
-          />
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-blue-700 hover:bg-blue-800 text-white font-semibold py-4 rounded-lg"
+          >
+            {loading ? "Verifying..." : "Verify Identity"}
+          </button>
 
-          <input
-            type="password"
-            maxLength={1}
-            className="w-12 h-14 text-center text-2xl font-bold border-2 border-gray-300 rounded-lg focus:border-blue-600 focus:ring-2 focus:ring-blue-100 outline-none transition"
-          />
-
-          <input
-            type="password"
-            maxLength={1}
-            className="w-12 h-14 text-center text-2xl font-bold border-2 border-gray-300 rounded-lg focus:border-blue-600 focus:ring-2 focus:ring-blue-100 outline-none transition"
-          />
-
-          <input
-            type="password"
-            maxLength={1}
-            className="w-12 h-14 text-center text-2xl font-bold border-2 border-gray-300 rounded-lg focus:border-blue-600 focus:ring-2 focus:ring-blue-100 outline-none transition"
-          />
-        </div>
-
-        <button className="w-full bg-blue-700 hover:bg-blue-800 text-white font-semibold py-4 rounded-lg transition">
-          Verify Identity
-        </button>
+        </form>
 
         <div className="mt-8 bg-blue-50 border border-blue-100 rounded-xl p-4">
           <p className="text-sm text-gray-700 text-center">

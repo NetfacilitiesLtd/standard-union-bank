@@ -51,3 +51,54 @@ export async function updateCustomer(formData: FormData) {
 
   redirect(`/admin/customers/${customerId}`);
 }
+
+export async function depositMoney(formData: FormData) {
+  const customerId = formData.get("customerId") as string;
+
+  const amount = Number(formData.get("amount"));
+
+  const description =
+    (formData.get("description") as string) || "Cash Deposit";
+
+  if (!customerId) {
+    throw new Error("Customer not found.");
+  }
+
+  if (isNaN(amount) || amount <= 0) {
+    throw new Error("Invalid deposit amount.");
+  }
+
+  const customer = await prisma.customer.findUnique({
+    where: {
+      id: customerId,
+    },
+  });
+
+  if (!customer) {
+    throw new Error("Customer not found.");
+  }
+
+  await prisma.$transaction([
+    prisma.customer.update({
+      where: {
+        id: customerId,
+      },
+      data: {
+        balance: {
+          increment: amount,
+        },
+      },
+    }),
+
+    prisma.transaction.create({
+      data: {
+        customerId,
+        type: "Deposit",
+        amount,
+        description,
+      },
+    }),
+  ]);
+
+  redirect(`/admin/customers/${customerId}`);
+}

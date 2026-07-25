@@ -73,10 +73,10 @@ export default function AccountInformation({
             className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:ring-2 focus:ring-red-500"
           >
             <option value="">Select Currency</option>
-            <option>USD - United States Dollar ($)</option>
-            <option>EUR - Euro (€)</option>
-            <option>GBP - British Pound (£)</option>
-            <option>GHS - Ghana Cedi (₵)</option>
+<option value="USD">USD - United States Dollar ($)</option>
+<option value="EUR">EUR - Euro (€)</option>
+<option value="GBP">GBP - British Pound (£)</option>
+<option value="GHS">GHS - Ghana Cedi (₵)</option>
           </select>
         </div>
 

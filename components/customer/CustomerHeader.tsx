@@ -1,4 +1,5 @@
-import { Pencil } from "lucide-react";
+import Link from "next/link";
+import { Pencil, Wallet } from "lucide-react";
 
 interface CustomerHeaderProps {
   customerId: string;
@@ -19,10 +20,23 @@ export default function CustomerHeader({
         </p>
       </div>
 
-      <button className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-xl flex items-center gap-2 transition">
-        <Pencil size={18} />
-        Edit Customer
-      </button>
+      <div className="flex gap-3">
+        <Link
+          href={`/admin/customers/${customerId}/deposit`}
+          className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl flex items-center gap-2 transition"
+        >
+          <Wallet size={18} />
+          Deposit Money
+        </Link>
+
+        <Link
+          href={`/admin/customers/${customerId}/edit`}
+          className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-xl flex items-center gap-2 transition"
+        >
+          <Pencil size={18} />
+          Edit Customer
+        </Link>
+      </div>
     </div>
   );
 }

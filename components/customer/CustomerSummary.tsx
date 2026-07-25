@@ -7,6 +7,9 @@ import {
 interface CustomerSummaryProps {
   customer: {
     accountStatus: string;
+    transactions: {
+      id: string;
+    }[];
   };
 }
 
@@ -47,7 +50,7 @@ export default function CustomerSummary({
         </p>
 
         <h2 className="text-3xl font-bold mt-2">
-          0
+          {customer.transactions.length}
         </h2>
       </div>
     </div>
