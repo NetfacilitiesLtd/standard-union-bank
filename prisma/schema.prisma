@@ -109,6 +109,9 @@ model InternationalTransfer {
 
   status String @default("Pending Transfer Code")
 
+  transferCode String?
+
   createdAt DateTime @default(now())
+
   updatedAt DateTime @updatedAt
 }

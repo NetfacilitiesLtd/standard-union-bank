@@ -11,13 +11,14 @@ export default async function DepositPage({
   const { customerId } = await params;
 
   const customer = await prisma.customer.findUnique({
-    where: {
-      id: customerId,
-    },
-    include: {
-      application: true,
-    },
-  });
+  where: {
+    id: customerId,
+  },
+  include: {
+    application: true,
+    transactions: true,
+  },
+});
 
   if (!customer) {
     notFound();

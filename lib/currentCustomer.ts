@@ -13,25 +13,31 @@ export async function getCurrentCustomer() {
     redirect("/login");
   }
 
-  const payload = await verifyToken(token);
+  try {
+    const payload = await verifyToken(token);
 
-  const customer = await prisma.customer.findUnique({
-    where: {
-      id: payload.customerId as string,
-    },
-    include: {
-      application: true,
-      transactions: {
-        orderBy: {
-          createdAt: "desc",
+    const customer = await prisma.customer.findUnique({
+      where: {
+        id: payload.customerId as string,
+      },
+      include: {
+        application: true,
+        transactions: {
+          orderBy: {
+            createdAt: "desc",
+          },
         },
       },
-    },
-  });
+    });
 
-  if (!customer) {
+    if (!customer) {
+      redirect("/login");
+    }
+
+    return customer;
+  } catch (error) {
+    console.error("Authentication Error:", error);
+
     redirect("/login");
   }
-
-  return customer;
 }

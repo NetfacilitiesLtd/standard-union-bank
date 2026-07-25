@@ -1,11 +1,12 @@
 "use client";
 
 import { useState, FormEvent } from "react";
+import { useRouter } from "next/navigation";
 import { Send } from "lucide-react";
 
 export default function InternationalTransferForm() {
   const [loading, setLoading] = useState(false);
-
+const router = useRouter();
   const [formData, setFormData] = useState({
     recipientName: "",
     recipientAddress: "",
@@ -45,23 +46,26 @@ export default function InternationalTransferForm() {
 
       const result = await response.json();
 
-      alert(result.message);
-
       if (result.success) {
-        setFormData({
-          recipientName: "",
-          recipientAddress: "",
-          bankName: "",
-          bankAddress: "",
-          country: "",
-          swiftCode: "",
-          accountNumber: "",
-          currency: "",
-          amount: "",
-          purpose: "",
-          description: "",
-        });
-      }
+  setFormData({
+    recipientName: "",
+    recipientAddress: "",
+    bankName: "",
+    bankAddress: "",
+    country: "",
+    swiftCode: "",
+    accountNumber: "",
+    currency: "",
+    amount: "",
+    purpose: "",
+    description: "",
+  });
+
+  router.push("/dashboard/transfers/code");
+  return;
+}
+
+alert(result.message);
     } catch (error) {
       console.error(error);
       alert("Unable to submit transfer.");
