@@ -89,7 +89,11 @@ export default function ApplyPage() {
 
     const result = await response.json();
 
-    alert(result.message);
+alert(result.message);
+
+if (result.success) {
+  window.location.href = "/";
+}
   } catch (error) {
     console.error(error);
     alert("Failed to submit application.");
