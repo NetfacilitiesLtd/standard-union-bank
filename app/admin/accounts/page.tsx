@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import {
   Landmark,
@@ -9,34 +7,34 @@ import {
   Eye,
 } from "lucide-react";
 
-const accounts = [
-  {
-    number: "1002345678",
-    customer: "John Doe",
-    type: "Savings",
-    currency: "USD",
-    balance: "$24,500.00",
-    status: "Active",
-  },
-  {
-    number: "1002345680",
-    customer: "Jane Smith",
-    type: "Checking",
-    currency: "EUR",
-    balance: "€7,850.00",
-    status: "Active",
-  },
-  {
-    number: "1002345695",
-    customer: "Michael Brown",
-    type: "Business",
-    currency: "GBP",
-    balance: "£15,200.00",
-    status: "Frozen",
-  },
-];
+import { prisma } from "@/lib/prisma";
 
-export default function AccountsPage() {
+export const dynamic = "force-dynamic";
+
+async function getAccounts() {
+  return prisma.customer.findMany({
+    include: {
+      application: true,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+}
+
+export default async function AccountsPage() {
+  const accounts = await getAccounts();
+
+  const totalAccounts = accounts.length;
+
+  const activeAccounts = accounts.filter(
+    (account) => account.accountStatus === "Active"
+  ).length;
+
+  const totalDeposits = accounts.reduce(
+    (sum, account) => sum + account.balance,
+    0
+  );
   return (
     <div className="space-y-8">
 
@@ -81,8 +79,8 @@ export default function AccountsPage() {
               </p>
 
               <h2 className="text-3xl font-bold text-slate-900 mt-2">
-                3,912
-              </h2>
+  {totalAccounts}
+</h2>
 
             </div>
 
@@ -110,8 +108,8 @@ export default function AccountsPage() {
               </p>
 
               <h2 className="text-3xl font-bold text-slate-900 mt-2">
-                3,845
-              </h2>
+  {activeAccounts}
+</h2>
 
             </div>
 
@@ -139,8 +137,8 @@ export default function AccountsPage() {
               </p>
 
               <h2 className="text-3xl font-bold text-slate-900 mt-2">
-                $12.8M
-              </h2>
+  ${totalDeposits.toLocaleString()}
+</h2>
 
             </div>
 
@@ -204,40 +202,40 @@ export default function AccountsPage() {
             {accounts.map((account) => (
 
               <tr
-                key={account.number}
+                key={account.id}
                 className="border-t hover:bg-slate-50 transition"
               >
 
                 <td className="p-5 font-medium">
-                  {account.number}
+                  {account.accountNumber}
                 </td>
 
                 <td className="font-semibold">
-                  {account.customer}
+                  {account.application.firstName} {account.application.lastName}
                 </td>
 
                 <td>
-                  {account.type}
+                  {account.application.accountType}
                 </td>
 
                 <td>
-                  {account.currency}
+                  {account.application.preferredCurrency}
                 </td>
 
                 <td className="font-semibold">
-                  {account.balance}
+                  ${account.balance.toLocaleString()}
                 </td>
 
                 <td>
 
                   <span
                     className={`px-3 py-1 rounded-full text-sm ${
-                      account.status === "Active"
+                      account.accountStatus === "Active"
                         ? "bg-green-100 text-green-700"
                         : "bg-red-100 text-red-700"
                     }`}
                   >
-                    {account.status}
+                    {account.accountStatus}
                   </span>
 
                 </td>

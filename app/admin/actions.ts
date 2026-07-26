@@ -3,6 +3,7 @@
 import { prisma } from "@/lib/prisma";
 
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 async function generateAccountNumber() {
   while (true) {
@@ -44,32 +45,30 @@ export async function approveApplication(applicationId: string) {
 
     if (application.status === "Approved") {
       console.log("Application is already approved.");
-      return;
+      redirect("/admin");
     }
 
     const accountNumber = await generateAccountNumber();
 
-    await prisma.$transaction(
-  async (tx: any) => {
-        await tx.application.update({
-          where: {
-            id: applicationId,
-          },
-          data: {
-            status: "Approved",
-          },
-        });
+    await prisma.$transaction(async (tx: any) => {
+      await tx.application.update({
+        where: {
+          id: applicationId,
+        },
+        data: {
+          status: "Approved",
+        },
+      });
 
-        await tx.customer.create({
-          data: {
-            applicationId: application.id,
-            accountNumber,
-            balance: 0,
-            accountStatus: "Active",
-          },
-        });
-      }
-    );
+      await tx.customer.create({
+        data: {
+          applicationId: application.id,
+          accountNumber,
+          balance: 0,
+          accountStatus: "Active",
+        },
+      });
+    });
 
     console.log("Application approved successfully.");
     console.log("Customer account created:", accountNumber);
@@ -77,6 +76,8 @@ export async function approveApplication(applicationId: string) {
     revalidatePath("/admin");
     revalidatePath(`/admin/applications/${applicationId}`);
     revalidatePath("/admin/customers");
+
+    redirect("/admin");
   } catch (error) {
     console.error("Approval failed:", error);
   }
