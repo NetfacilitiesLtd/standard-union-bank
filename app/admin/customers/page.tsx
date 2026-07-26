@@ -39,52 +39,56 @@ export default async function CustomersPage() {
           </thead>
 
           <tbody>
-            {customers.map((customer) => (
-              <tr
-                key={customer.id}
-                className="border-t hover:bg-slate-50"
-              >
-                <td className="p-5 font-semibold">
-                  {customer.accountNumber}
-                </td>
+            {customers.map(
+              (
+                customer: (typeof customers)[number]
+              ) => (
+                <tr
+                  key={customer.id}
+                  className="border-t hover:bg-slate-50"
+                >
+                  <td className="p-5 font-semibold">
+                    {customer.accountNumber}
+                  </td>
 
-                <td>
-                  {customer.application.firstName}{" "}
-                  {customer.application.lastName}
-                </td>
+                  <td>
+                    {customer.application.firstName}{" "}
+                    {customer.application.lastName}
+                  </td>
 
-                <td>
-                  {customer.application.email}
-                </td>
+                  <td>
+                    {customer.application.email}
+                  </td>
 
-                <td>
-                  {customer.application.accountType}
-                </td>
+                  <td>
+                    {customer.application.accountType}
+                  </td>
 
-                <td>
-                  {customer.application.preferredCurrency}
-                </td>
+                  <td>
+                    {customer.application.preferredCurrency}
+                  </td>
 
-                <td>
-                  {customer.balance.toLocaleString()}
-                </td>
+                  <td>
+                    {customer.balance.toLocaleString()}
+                  </td>
 
-                <td>
-                  <span className="px-3 py-1 rounded-full bg-green-100 text-green-700 text-sm">
-                    {customer.accountStatus}
-                  </span>
-                </td>
+                  <td>
+                    <span className="px-3 py-1 rounded-full bg-green-100 text-green-700 text-sm">
+                      {customer.accountStatus}
+                    </span>
+                  </td>
 
-                <td className="text-center">
-                  <Link
-                    href={`/admin/customers/${customer.id}`}
-                    className="inline-block px-4 py-2 rounded-lg bg-red-600 text-white text-sm font-medium hover:bg-red-700 transition"
-                  >
-                    View
-                  </Link>
-                </td>
-              </tr>
-            ))}
+                  <td className="text-center">
+                    <Link
+                      href={`/admin/customers/${customer.id}`}
+                      className="inline-block px-4 py-2 rounded-lg bg-red-600 text-white text-sm font-medium hover:bg-red-700 transition"
+                    >
+                      View
+                    </Link>
+                  </td>
+                </tr>
+              )
+            )}
 
             {customers.length === 0 && (
               <tr>
