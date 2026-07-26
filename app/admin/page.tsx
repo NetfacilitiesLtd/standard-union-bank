@@ -9,6 +9,7 @@ import {
 
 import { prisma } from "@/lib/prisma";
 import ApplicationsTable from "@/components/admin/ApplicationsTable";
+import LogoutButton from "@/components/admin/LogoutButton";
 
 export default async function AdminDashboard() {
   const [
@@ -77,19 +78,21 @@ export default async function AdminDashboard() {
   return (
     <div className="space-y-8">
 
-      {/* Welcome */}
+      <div className="flex items-center justify-between">
 
-      <div>
-        <h1 className="text-4xl font-bold text-slate-900">
-          Bank Operations Dashboard
-        </h1>
+        <div>
+          <h1 className="text-4xl font-bold text-slate-900">
+            Bank Operations Dashboard
+          </h1>
 
-        <p className="text-slate-500 mt-2">
-          Monitor customers, applications and bank performance.
-        </p>
+          <p className="text-slate-500 mt-2">
+            Monitor customers, applications and bank performance.
+          </p>
+        </div>
+
+        <LogoutButton />
+
       </div>
-
-      {/* Statistics */}
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
         {stats.map((stat) => {
@@ -123,10 +126,7 @@ export default async function AdminDashboard() {
         })}
       </div>
 
-      {/* Quick Actions */}
-
       <div>
-
         <h2 className="text-2xl font-bold mb-5">
           Quick Actions
         </h2>
@@ -134,11 +134,7 @@ export default async function AdminDashboard() {
         <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
 
           <button className="bg-white border border-slate-200 rounded-2xl p-6 hover:shadow-md transition text-left">
-
-            <UserPlus
-              className="text-red-600 mb-4"
-              size={30}
-            />
+            <UserPlus className="text-red-600 mb-4" size={30} />
 
             <h3 className="font-semibold text-lg">
               Add Customer
@@ -147,15 +143,10 @@ export default async function AdminDashboard() {
             <p className="text-sm text-slate-500 mt-2">
               Register a new customer profile.
             </p>
-
           </button>
 
           <button className="bg-white border border-slate-200 rounded-2xl p-6 hover:shadow-md transition text-left">
-
-            <Landmark
-              className="text-red-600 mb-4"
-              size={30}
-            />
+            <Landmark className="text-red-600 mb-4" size={30} />
 
             <h3 className="font-semibold text-lg">
               Open Account
@@ -164,15 +155,10 @@ export default async function AdminDashboard() {
             <p className="text-sm text-slate-500 mt-2">
               Create a new bank account.
             </p>
-
           </button>
 
           <button className="bg-white border border-slate-200 rounded-2xl p-6 hover:shadow-md transition text-left">
-
-            <ArrowLeftRight
-              className="text-red-600 mb-4"
-              size={30}
-            />
+            <ArrowLeftRight className="text-red-600 mb-4" size={30} />
 
             <h3 className="font-semibold text-lg">
               View Transactions
@@ -181,15 +167,10 @@ export default async function AdminDashboard() {
             <p className="text-sm text-slate-500 mt-2">
               Review customer activity.
             </p>
-
           </button>
 
           <button className="bg-white border border-slate-200 rounded-2xl p-6 hover:shadow-md transition text-left">
-
-            <CreditCard
-              className="text-red-600 mb-4"
-              size={30}
-            />
+            <CreditCard className="text-red-600 mb-4" size={30} />
 
             <h3 className="font-semibold text-lg">
               Issue Card
@@ -198,14 +179,10 @@ export default async function AdminDashboard() {
             <p className="text-sm text-slate-500 mt-2">
               Assign a debit or credit card.
             </p>
-
           </button>
 
         </div>
-
       </div>
-
-      {/* Live Applications */}
 
       <ApplicationsTable applications={applications} />
 
