@@ -1,7 +1,7 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
-import { Prisma } from "@prisma/client";
+
 import { revalidatePath } from "next/cache";
 
 async function generateAccountNumber() {
@@ -50,7 +50,7 @@ export async function approveApplication(applicationId: string) {
     const accountNumber = await generateAccountNumber();
 
     await prisma.$transaction(
-      async (tx: Prisma.TransactionClient) => {
+  async (tx: any) => {
         await tx.application.update({
           where: {
             id: applicationId,
