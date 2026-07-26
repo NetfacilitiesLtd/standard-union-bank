@@ -65,7 +65,7 @@ export default function Navbar() {
           <div className="hidden lg:flex items-center gap-3">
 
             <Link
-              href="/open-account"
+              href="/apply"
               className="rounded-lg bg-red-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-red-700"
             >
               Open Account
@@ -110,7 +110,7 @@ export default function Navbar() {
               ))}
 
               <Link
-                href="/open-account"
+                href="/apply"
                 className="rounded-lg bg-red-600 py-3 text-center font-semibold text-white"
               >
                 Open Account
