@@ -1,6 +1,7 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
+import { Prisma } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
 async function generateAccountNumber() {
@@ -48,25 +49,27 @@ export async function approveApplication(applicationId: string) {
 
     const accountNumber = await generateAccountNumber();
 
-    await prisma.$transaction(async (tx) => {
-      await tx.application.update({
-        where: {
-          id: applicationId,
-        },
-        data: {
-          status: "Approved",
-        },
-      });
+    await prisma.$transaction(
+      async (tx: Prisma.TransactionClient) => {
+        await tx.application.update({
+          where: {
+            id: applicationId,
+          },
+          data: {
+            status: "Approved",
+          },
+        });
 
-      await tx.customer.create({
-        data: {
-          applicationId: application.id,
-          accountNumber,
-          balance: 0,
-          accountStatus: "Active",
-        },
-      });
-    });
+        await tx.customer.create({
+          data: {
+            applicationId: application.id,
+            accountNumber,
+            balance: 0,
+            accountStatus: "Active",
+          },
+        });
+      }
+    );
 
     console.log("Application approved successfully.");
     console.log("Customer account created:", accountNumber);
