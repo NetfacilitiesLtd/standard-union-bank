@@ -242,13 +242,13 @@ export default async function AccountsPage() {
 
                 <td>
 
-                  <button className="inline-flex items-center gap-2 text-red-600 hover:text-red-700 font-medium">
-
-                    <Eye size={18} />
-
-                    View
-
-                  </button>
+                  <Link
+  href={`/admin/accounts/${account.id}`}
+  className="inline-flex items-center gap-2 text-red-600 hover:text-red-700 font-medium"
+>
+  <Eye size={18} />
+  View
+</Link>
 
                 </td>
 

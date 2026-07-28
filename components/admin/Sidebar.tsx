@@ -12,6 +12,7 @@ import {
   BarChart3,
   Settings,
   LogOut,
+  Globe2,
 } from "lucide-react";
 
 const menuItems = [
@@ -35,6 +36,11 @@ const menuItems = [
     icon: ReceiptText,
     href: "/admin/transactions",
   },
+  {
+  title: "International Transfers",
+  icon: Globe2,
+  href: "/admin/international-transfers",
+},
   {
     title: "Cards",
     icon: CreditCard,

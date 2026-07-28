@@ -7,7 +7,10 @@ import {
   FileText,
 } from "lucide-react";
 
-export default function AccountDetailsPage() {
+import { getCurrentCustomer } from "@/lib/currentCustomer";
+
+export default async function AccountDetailsPage() {
+  const customer = await getCurrentCustomer();
   return (
     <main className="min-h-screen bg-slate-100 p-8">
 
@@ -43,24 +46,23 @@ export default function AccountDetailsPage() {
               <div>
 
                 <h1 className="text-3xl font-bold">
-                  Checking Account
-                </h1>
+  {customer.application.accountType}
+</h1>
 
                 <p className="text-slate-500 mt-1">
-                  Account Number: ****6789
-                </p>
+  Account Number: ****{customer.accountNumber.slice(-4)}
+</p>
 
               </div>
 
             </div>
 
             <div className="mt-6 md:mt-0 flex items-center gap-2 text-green-600 font-semibold">
+  <BadgeCheck size={20} />
 
-              <BadgeCheck size={20} />
+  {customer.accountStatus}
 
-              Active
-
-            </div>
+</div>
 
           </div>
 
@@ -75,8 +77,11 @@ export default function AccountDetailsPage() {
               </p>
 
               <h2 className="text-3xl font-bold mt-2">
-                $25,450.75
-              </h2>
+  {new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: customer.application.preferredCurrency,
+  }).format(customer.balance)}
+</h2>
 
             </div>
 
@@ -87,8 +92,8 @@ export default function AccountDetailsPage() {
               </p>
 
               <h2 className="text-2xl font-bold mt-2">
-                USD
-              </h2>
+  {customer.application.preferredCurrency}
+</h2>
 
             </div>
 
@@ -99,8 +104,8 @@ export default function AccountDetailsPage() {
               </p>
 
               <h2 className="text-xl font-bold mt-2">
-                12 Jan 2025
-              </h2>
+  {new Date(customer.createdAt).toLocaleDateString()}
+</h2>
 
             </div>
 
@@ -111,8 +116,8 @@ export default function AccountDetailsPage() {
               </p>
 
               <h2 className="text-xl font-bold mt-2">
-                Checking
-              </h2>
+  {customer.application.accountType}
+</h2>
 
             </div>
 
@@ -161,38 +166,43 @@ export default function AccountDetailsPage() {
               <div>
 
                 <h3 className="font-semibold">
-                  Salary Deposit
-                </h3>
+  {customer.transactions[0]?.description}
+</h3>
 
                 <p className="text-slate-500 text-sm">
-                  Today • 9:15 AM
-                </p>
+  {new Date(customer.transactions[0]?.createdAt).toLocaleString()}
+</p>
 
               </div>
 
               <span className="text-green-600 font-bold">
-                +$3,250.00
-              </span>
+  {new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: customer.application.preferredCurrency,
+}).format(customer.transactions[0]?.amount ?? 0)}
+</span>
 
             </div>
 
             <div className="flex justify-between border-b pb-4">
 
               <div>
-
-                <h3 className="font-semibold">
-                  Electricity Bill
-                </h3>
+<h3 className="font-semibold">
+  {customer.transactions[1]?.description}
+</h3>
 
                 <p className="text-slate-500 text-sm">
-                  Yesterday • 2:45 PM
-                </p>
+  {new Date(customer.transactions[1]?.createdAt).toLocaleString()}
+</p>
 
               </div>
 
               <span className="text-red-600 font-bold">
-                -$120.00
-              </span>
+  {new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: customer.application.preferredCurrency,
+}).format(customer.transactions[1]?.amount ?? 0)}
+</span>
 
             </div>
 
@@ -201,18 +211,21 @@ export default function AccountDetailsPage() {
               <div>
 
                 <h3 className="font-semibold">
-                  ATM Withdrawal
-                </h3>
+  {customer.transactions[2]?.description}
+</h3>
 
                 <p className="text-slate-500 text-sm">
-                  Monday • 11:30 AM
-                </p>
+  {new Date(customer.transactions[2]?.createdAt).toLocaleString()}
+</p>
 
               </div>
 
               <span className="text-red-600 font-bold">
-                -$200.00
-              </span>
+  {new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: customer.application.preferredCurrency,
+}).format(customer.transactions[2]?.amount ?? 0)}
+</span>
 
             </div>
 

@@ -102,3 +102,117 @@ export async function depositMoney(formData: FormData) {
 
   redirect(`/admin/customers/${customerId}`);
 }
+
+export async function withdrawMoney(formData: FormData) {
+  const customerId = formData.get("customerId") as string;
+
+  const amount = Number(formData.get("amount"));
+
+  const description =
+    (formData.get("description") as string) || "Cash Withdrawal";
+
+  if (!customerId) {
+    throw new Error("Customer not found.");
+  }
+
+  if (isNaN(amount) || amount <= 0) {
+    throw new Error("Invalid withdrawal amount.");
+  }
+
+  const customer = await prisma.customer.findUnique({
+    where: {
+      id: customerId,
+    },
+  });
+
+  if (!customer) {
+    throw new Error("Customer not found.");
+  }
+
+  if (customer.balance < amount) {
+    throw new Error("Insufficient account balance.");
+  }
+
+  await prisma.$transaction([
+    prisma.customer.update({
+      where: {
+        id: customerId,
+      },
+      data: {
+        balance: {
+          decrement: amount,
+        },
+      },
+    }),
+
+    prisma.transaction.create({
+      data: {
+        customerId,
+        type: "Withdrawal",
+        amount,
+        description,
+      },
+    }),
+  ]);
+
+  redirect(`/admin/customers/${customerId}`);
+}
+
+export async function updateAccountStatus(formData: FormData) {
+  const customerId = formData.get("customerId") as string;
+  const accountStatus = formData.get("accountStatus") as string;
+
+  const customer = await prisma.customer.findUnique({
+    where: {
+      id: customerId,
+    },
+  });
+
+  if (!customer) {
+    throw new Error("Customer not found.");
+  }
+
+  await prisma.customer.update({
+    where: {
+      id: customerId,
+    },
+    data: {
+      accountStatus,
+    },
+  });
+
+  redirect(`/admin/accounts/${customerId}`);
+}
+export async function generateTransferCode(formData: FormData) {
+  const transferId = formData.get("transferId") as string;
+
+  const randomNumber = Math.floor(100000 + Math.random() * 900000);
+
+const code = `INT-${new Date().getFullYear()}-${randomNumber}`;
+
+  await prisma.internationalTransfer.update({
+    where: {
+      id: transferId,
+    },
+    data: {
+      transferCode: code,
+    },
+  });
+
+  redirect(`/admin/international-transfers/${transferId}`);
+}
+export async function updateTransferStatus(formData: FormData) {
+  const transferId = formData.get("transferId") as string;
+  const status = formData.get("status") as string;
+
+  await prisma.internationalTransfer.update({
+    where: {
+      id: transferId,
+    },
+    data: {
+      status,
+    },
+  });
+
+  redirect(`/admin/international-transfers/${transferId}`);
+}
