@@ -8,8 +8,6 @@ import {
   Wallet,
   ArrowLeftRight,
   ReceiptText,
-  CreditCard,
-  PiggyBank,
   Settings,
   LogOut,
 } from "lucide-react";
@@ -36,16 +34,6 @@ const menuItems = [
     href: "/dashboard/transactions",
   },
   {
-    title: "Cards",
-    icon: CreditCard,
-    href: "/dashboard/cards",
-  },
-  {
-    title: "Investments",
-    icon: PiggyBank,
-    href: "/dashboard/investments",
-  },
-  {
     title: "Settings",
     icon: Settings,
     href: "/dashboard/settings",
@@ -57,7 +45,6 @@ export default function Sidebar() {
 
   return (
     <aside className="w-72 min-h-screen bg-white border-r border-slate-200 flex flex-col">
-
       {/* Logo */}
 
       <div className="px-8 py-8 border-b">
@@ -73,13 +60,11 @@ export default function Sidebar() {
       {/* Menu */}
 
       <nav className="flex-1 px-5 py-8">
-
         <p className="uppercase tracking-[4px] text-xs text-slate-400 mb-6 px-4">
           Main Menu
         </p>
 
         <div className="space-y-2">
-
           {menuItems.map((item) => {
             const Icon = item.icon;
 
@@ -103,19 +88,15 @@ export default function Sidebar() {
                 <span className="font-medium">
                   {item.title}
                 </span>
-
               </Link>
             );
           })}
-
         </div>
-
       </nav>
 
       {/* Logout */}
 
       <div className="border-t p-5">
-
         <Link
           href="/"
           className="flex items-center gap-4 px-4 py-4 rounded-xl text-slate-600 hover:bg-red-50 hover:text-red-600 transition"
@@ -125,11 +106,8 @@ export default function Sidebar() {
           <span className="font-medium">
             Logout
           </span>
-
         </Link>
-
       </div>
-
     </aside>
   );
 }

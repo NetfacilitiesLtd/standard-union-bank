@@ -69,10 +69,13 @@ export async function depositMoney(formData: FormData) {
   }
 
   const customer = await prisma.customer.findUnique({
-    where: {
-      id: customerId,
-    },
-  });
+  where: {
+    id: customerId,
+  },
+  include: {
+    application: true,
+  },
+});
 
   if (!customer) {
     throw new Error("Customer not found.");
@@ -91,15 +94,17 @@ export async function depositMoney(formData: FormData) {
     }),
 
     prisma.transaction.create({
-      data: {
-        customerId,
-        type: "Deposit",
-        amount,
-        description,
-      },
-    }),
-  ]);
-
+  data: {
+    customerId,
+    reference: `TXN-${Date.now()}`,
+    type: "Deposit",
+    amount,
+    currency: customer.application.preferredCurrency,
+    status: "Completed",
+    description,
+  },
+}),
+]);
   redirect(`/admin/customers/${customerId}`);
 }
 
@@ -120,10 +125,13 @@ export async function withdrawMoney(formData: FormData) {
   }
 
   const customer = await prisma.customer.findUnique({
-    where: {
-      id: customerId,
-    },
-  });
+  where: {
+    id: customerId,
+  },
+  include: {
+    application: true,
+  },
+});
 
   if (!customer) {
     throw new Error("Customer not found.");
@@ -146,15 +154,17 @@ export async function withdrawMoney(formData: FormData) {
     }),
 
     prisma.transaction.create({
-      data: {
-        customerId,
-        type: "Withdrawal",
-        amount,
-        description,
-      },
-    }),
-  ]);
-
+  data: {
+    customerId,
+    reference: `TXN-${Date.now()}`,
+    type: "Withdrawal",
+    amount,
+    currency: customer.application.preferredCurrency,
+    status: "Completed",
+    description,
+  },
+}),
+]);
   redirect(`/admin/customers/${customerId}`);
 }
 

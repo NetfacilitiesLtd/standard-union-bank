@@ -54,11 +54,15 @@ model Customer {
 model Transaction {
   id          String   @id @default(cuid())
   customerId  String
+  reference   String?  @unique
   type        String
   amount      Float
+  currency    String   @default("USD")
+  status      String   @default("Completed")
   description String?
   createdAt   DateTime @default(now())
-  customer    Customer @relation(fields: [customerId], references: [id])
+
+  customer Customer @relation(fields: [customerId], references: [id])
 }
 
 model InternationalTransfer {

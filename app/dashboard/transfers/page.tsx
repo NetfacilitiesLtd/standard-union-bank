@@ -49,12 +49,14 @@ export default function TransferPage() {
             using their account number.
           </p>
 
-          <button
-            disabled
-            className="mt-8 w-full bg-slate-300 text-slate-600 rounded-xl py-4 font-semibold cursor-not-allowed"
-          >
-            Coming Next
-          </button>
+          <Link
+  href="/dashboard/transfers/internal"
+  className="mt-8 flex items-center justify-center gap-2 w-full bg-blue-600 hover:bg-blue-700 text-white rounded-xl py-4 font-semibold transition"
+>
+  Continue
+
+  <ChevronRight size={20} />
+</Link>
         </div>
 
         {/* International Transfer */}
