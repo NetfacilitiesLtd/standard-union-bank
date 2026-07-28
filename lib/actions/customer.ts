@@ -216,3 +216,32 @@ export async function updateTransferStatus(formData: FormData) {
 
   redirect(`/admin/international-transfers/${transferId}`);
 }
+export async function verifyTransferCode(formData: FormData) {
+  const transferId = formData.get("transferId") as string;
+  const code = formData.get("code") as string;
+
+  const transfer = await prisma.internationalTransfer.findUnique({
+    where: {
+      id: transferId,
+    },
+  });
+
+  if (!transfer) {
+    throw new Error("Transfer not found.");
+  }
+
+  if (transfer.transferCode !== code) {
+    redirect(`/dashboard/transfers/${transferId}?error=invalid-code`);
+  }
+
+  await prisma.internationalTransfer.update({
+    where: {
+      id: transferId,
+    },
+    data: {
+      status: "Processing",
+    },
+  });
+
+  redirect(`/dashboard/transfers/${transferId}?success=true`);
+}
