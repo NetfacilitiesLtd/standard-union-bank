@@ -1,8 +1,6 @@
 import Link from "next/link";
 import {
   ArrowLeftRight,
-  Landmark,
-  CreditCard,
   FileText,
 } from "lucide-react";
 
@@ -17,20 +15,6 @@ const actions = [
     href: "/dashboard/transfers",
     icon: ArrowLeftRight,
     color: "bg-red-600",
-  },
-  {
-    title: "Deposit Funds",
-    description: "Manage deposits",
-    href: "/dashboard/deposits",
-    icon: Landmark,
-    color: "bg-blue-600",
-  },
-  {
-    title: "My Cards",
-    description: "Manage your cards",
-    href: "/dashboard/cards",
-    icon: CreditCard,
-    color: "bg-emerald-600",
   },
   {
     title: "Statements",
@@ -56,7 +40,7 @@ export default function QuickActions({
         </p>
       </div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 gap-6">
         {actions.map((action) => {
           const Icon = action.icon;
 
