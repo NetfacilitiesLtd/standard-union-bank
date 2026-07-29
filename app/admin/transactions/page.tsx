@@ -109,14 +109,23 @@ export default async function TransactionsPage() {
                   {new Date(transaction.createdAt).toLocaleString()}
                 </td>
 
-                <td className="px-6 py-4 text-center">
-                  <Link
-                    href={`/admin/transactions/${transaction.id}`}
-                    className="inline-flex items-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 transition"
-                  >
-                    View
-                  </Link>
-                </td>
+                <td className="px-6 py-4">
+  <div className="flex items-center justify-center gap-2">
+    <Link
+      href={`/admin/transactions/${transaction.id}`}
+      className="inline-flex items-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 transition"
+    >
+      👁 View
+    </Link>
+
+    <Link
+      href={`/admin/transactions/${transaction.id}/edit`}
+      className="inline-flex items-center rounded-lg bg-amber-500 px-4 py-2 text-sm font-medium text-white hover:bg-amber-600 transition"
+    >
+      ✏️ Edit
+    </Link>
+  </div>
+</td>
               </tr>
             ))}
           </tbody>
