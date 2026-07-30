@@ -15,12 +15,7 @@ export default async function TransactionsPage() {
       createdAt: "desc",
     },
   });
-console.log(
-  "Admin Transactions:",
-  transactions.length,
-  transactions[0]?.reference,
-  transactions[0]?.createdAt
-);
+
   return (
     <div className="space-y-8">
       <div>
