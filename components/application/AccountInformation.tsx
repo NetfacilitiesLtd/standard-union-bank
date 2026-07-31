@@ -73,9 +73,23 @@ export default function AccountInformation({
             className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:ring-2 focus:ring-red-500"
           >
             <option value="">Select Currency</option>
+
 <option value="USD">USD - United States Dollar ($)</option>
 <option value="EUR">EUR - Euro (€)</option>
 <option value="GBP">GBP - British Pound (£)</option>
+<option value="CHF">CHF - Swiss Franc (CHF)</option>
+<option value="CAD">CAD - Canadian Dollar (C$)</option>
+<option value="AUD">AUD - Australian Dollar (A$)</option>
+<option value="NZD">NZD - New Zealand Dollar (NZ$)</option>
+<option value="JPY">JPY - Japanese Yen (¥)</option>
+<option value="CNY">CNY - Chinese Yuan (¥)</option>
+<option value="SGD">SGD - Singapore Dollar (S$)</option>
+<option value="HKD">HKD - Hong Kong Dollar (HK$)</option>
+<option value="AED">AED - UAE Dirham (د.إ)</option>
+<option value="SAR">SAR - Saudi Riyal (﷼)</option>
+<option value="ZAR">ZAR - South African Rand (R)</option>
+<option value="NGN">NGN - Nigerian Naira (₦)</option>
+<option value="KES">KES - Kenyan Shilling (KSh)</option>
 <option value="GHS">GHS - Ghana Cedi (₵)</option>
           </select>
         </div>

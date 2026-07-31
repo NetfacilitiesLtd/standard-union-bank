@@ -136,48 +136,48 @@ export default function PersonalInformation({
           </label>
 
           <input
-            type="text"
-            name="nationality"
-            value={formData.nationality}
-            onChange={handleChange}
-            placeholder="e.g. Ghanaian"
-            className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:ring-2 focus:ring-red-500"
-          />
-        </div>
+  type="text"
+  name="nationality"
+  value={formData.nationality}
+  onChange={handleChange}
+  placeholder="e.g. British"
+  className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:ring-2 focus:ring-red-500"
+/>
+</div>
 
-        {/* Email */}
+{/* Email */}
 
-        <div>
-          <label className="block text-sm font-semibold text-slate-700 mb-2">
-            Email Address <span className="text-red-600">*</span>
-          </label>
+<div>
+  <label className="block text-sm font-semibold text-slate-700 mb-2">
+    Email Address <span className="text-red-600">*</span>
+  </label>
 
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="example@email.com"
-            className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:ring-2 focus:ring-red-500"
-          />
-        </div>
+  <input
+    type="email"
+    name="email"
+    value={formData.email}
+    onChange={handleChange}
+    placeholder="example@email.com"
+    className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:ring-2 focus:ring-red-500"
+  />
+</div>
 
-        {/* Phone */}
+{/* Phone */}
 
-        <div>
-          <label className="block text-sm font-semibold text-slate-700 mb-2">
-            Phone Number <span className="text-red-600">*</span>
-          </label>
+<div>
+  <label className="block text-sm font-semibold text-slate-700 mb-2">
+    Phone Number <span className="text-red-600">*</span>
+  </label>
 
-          <input
-            type="tel"
-            name="phoneNumber"
-            value={formData.phoneNumber}
-            onChange={handleChange}
-            placeholder="+233 XX XXX XXXX"
-            className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:ring-2 focus:ring-red-500"
-          />
-        </div>
+  <input
+    type="tel"
+    name="phoneNumber"
+    value={formData.phoneNumber}
+    onChange={handleChange}
+    placeholder="+44 XX XXXX XXXX"
+    className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:ring-2 focus:ring-red-500"
+  />
+</div>
       </div>
     </section>
   );

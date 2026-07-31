@@ -42,11 +42,11 @@ export default function Hero() {
           <div className="flex flex-wrap gap-5 mt-10">
 
             <Link
-              href="/open-account"
-              className="bg-red-600 hover:bg-red-700 transition-all duration-300 text-white font-semibold px-8 py-4 rounded-xl shadow-lg"
-            >
-              Open Account
-            </Link>
+  href="/apply"
+  className="bg-red-600 hover:bg-red-700 transition-all duration-300 text-white font-semibold px-8 py-4 rounded-xl shadow-lg"
+>
+  Open Account
+</Link>
 
             <Link
               href="/login"
