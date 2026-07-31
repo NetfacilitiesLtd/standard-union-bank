@@ -52,10 +52,13 @@ export async function transferMoney(
   }
 
   const senderAccount = await prisma.customer.findUnique({
-    where: {
-      id: sender.id,
-    },
-  });
+  where: {
+    id: sender.id,
+  },
+  include: {
+    application: true,
+  },
+});
 
   if (!senderAccount) {
     return {
@@ -142,7 +145,7 @@ await prisma.$transaction(async (tx) => {
       reference: `IT-${Date.now()}-OUT`,
       type: "Transfer Out",
       amount,
-      currency: "USD",
+      currency: senderAccount.application.preferredCurrency,
       status: "Completed",
       description:
         description ||
@@ -155,7 +158,7 @@ await prisma.$transaction(async (tx) => {
     reference: `IT-${Date.now()}-IN`,
     type: "Transfer In",
     amount,
-    currency: "USD",
+    currency: recipient.application.preferredCurrency,
     status: "Completed",
     description:
       description ||

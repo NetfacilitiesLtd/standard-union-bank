@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
-
+export const dynamic = "force-dynamic";
 interface Props {
   params: Promise<{
     id: string;
@@ -114,8 +114,8 @@ export default async function TransactionDetailsPage({ params }: Props) {
           <div>
             <p className="text-sm text-slate-500">Date & Time</p>
             <p className="font-semibold">
-              {new Date(transaction.createdAt).toLocaleString()}
-            </p>
+  {new Date(transaction.transactionDate).toLocaleString()}
+</p>
           </div>
 
         </div>

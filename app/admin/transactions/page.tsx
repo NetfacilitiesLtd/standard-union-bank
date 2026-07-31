@@ -12,8 +12,8 @@ export default async function TransactionsPage() {
       },
     },
     orderBy: {
-      createdAt: "desc",
-    },
+  transactionDate: "desc",
+},
   });
 
   return (
@@ -107,8 +107,8 @@ export default async function TransactionsPage() {
                 </td>
 
                 <td className="px-6 py-4">
-                  {new Date(transaction.createdAt).toLocaleString()}
-                </td>
+  {new Date(transaction.transactionDate).toLocaleString()}
+</td>
 
                 <td className="px-6 py-4">
   <div className="flex items-center justify-center gap-2">

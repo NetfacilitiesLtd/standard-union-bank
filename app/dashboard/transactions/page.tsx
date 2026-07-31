@@ -91,14 +91,14 @@ export default async function TransactionsPage() {
                     className="border-t hover:bg-slate-50 transition"
                   >
                     <td className="p-5">
-                      {new Date(txn.createdAt).toLocaleDateString(
-                        "en-GB",
-                        {
-                          day: "2-digit",
-                          month: "short",
-                          year: "numeric",
-                        }
-                      )}
+                      {new Date(txn.transactionDate).toLocaleDateString(
+  "en-GB",
+  {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  }
+)}
                     </td>
 
                     <td className="font-semibold">

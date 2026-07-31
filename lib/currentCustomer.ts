@@ -23,10 +23,10 @@ export async function getCurrentCustomer() {
       include: {
         application: true,
         transactions: {
-          orderBy: {
-            createdAt: "desc",
-          },
-        },
+  orderBy: {
+    transactionDate: "desc",
+  },
+},
       },
     });
 
