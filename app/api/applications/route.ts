@@ -61,8 +61,8 @@ export async function POST(request: Request) {
         password: hashedPassword,
         pin: hashedPin,
 
-        passportPhoto: null,
-        governmentId: null,
+        passportPhoto: body.passportPhoto || null,
+governmentId: body.governmentId || null,
       },
     });
 

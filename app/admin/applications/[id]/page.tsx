@@ -83,7 +83,61 @@ export default async function ApplicationDetailsPage({
           <p><strong>Status:</strong> {application.status}</p>
         </div>
       </div>
+<div className="bg-white rounded-2xl border border-slate-200 p-6">
+  <h2 className="font-bold text-lg mb-4">
+    Supporting Documents
+  </h2>
 
+  <div className="grid md:grid-cols-2 gap-6">
+    <div>
+      <p className="font-medium mb-2">
+        Passport Photograph
+      </p>
+
+      {application.passportPhoto ? (
+  <a
+    href={application.passportPhoto}
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <img
+      src={application.passportPhoto}
+      alt="Passport Photo"
+      className="w-40 h-48 object-cover rounded-xl border border-slate-300 hover:opacity-90 transition"
+    />
+  </a>
+) : (
+  <p className="text-red-500">
+    No passport photo uploaded.
+  </p>
+)}
+    </div>
+
+    <div>
+      <p className="font-medium mb-2">
+        Government ID
+      </p>
+
+      {application.governmentId ? (
+  <a
+    href={application.governmentId}
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <img
+      src={application.governmentId}
+      alt="Government ID"
+      className="w-64 h-40 object-cover rounded-xl border border-slate-300 hover:opacity-90 transition"
+    />
+  </a>
+) : (
+  <p className="text-red-500">
+    No government ID uploaded.
+  </p>
+)}
+    </div>
+  </div>
+</div>
       <div className="flex gap-4">
         <form
           action={async () => {

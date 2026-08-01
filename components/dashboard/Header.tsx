@@ -10,10 +10,11 @@ type HeaderProps = {
   customer: {
     accountNumber: string;
     application: {
-      firstName: string;
-      lastName: string;
-      accountType: string;
-    };
+  firstName: string;
+  lastName: string;
+  accountType: string;
+  passportPhoto: string | null;
+};
   };
 };
 
@@ -60,9 +61,17 @@ export default function Header({ customer }: HeaderProps) {
 
           <button className="flex items-center gap-3 bg-slate-100 rounded-xl px-4 py-2">
 
-            <div className="w-11 h-11 rounded-full bg-red-600 flex items-center justify-center text-white font-bold text-lg">
-              {customer.application.firstName.charAt(0)}
-            </div>
+            {customer.application.passportPhoto ? (
+  <img
+    src={customer.application.passportPhoto}
+    alt={fullName}
+    className="w-16 h-16 rounded-full object-cover border-2 border-red-600"
+  />
+) : (
+  <div className="w-11 h-11 rounded-full bg-red-600 flex items-center justify-center text-white font-bold text-lg">
+    {customer.application.firstName.charAt(0)}
+  </div>
+)}
 
             <div className="hidden lg:block text-left">
 

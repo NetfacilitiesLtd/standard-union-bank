@@ -52,6 +52,28 @@ export default function ApplyPage() {
   e.preventDefault();
 
   try {
+    const uploadData = new FormData();
+
+    if (formData.passportPhoto) {
+      uploadData.append("passportPhoto", formData.passportPhoto);
+    }
+
+    if (formData.governmentId) {
+      uploadData.append("governmentId", formData.governmentId);
+    }
+
+    const uploadResponse = await fetch("/api/uploads", {
+      method: "POST",
+      body: uploadData,
+    });
+
+    const uploadResult = await uploadResponse.json();
+
+    if (!uploadResult.success) {
+      alert(uploadResult.message);
+      return;
+    }
+
     const response = await fetch("/api/applications", {
       method: "POST",
       headers: {
@@ -84,16 +106,19 @@ export default function ApplyPage() {
 
         password: formData.password,
         pin: formData.pin,
+
+        passportPhoto: uploadResult.passportPhoto,
+        governmentId: uploadResult.governmentId,
       }),
     });
 
     const result = await response.json();
 
-alert(result.message);
+    alert(result.message);
 
-if (result.success) {
-  window.location.href = "/";
-}
+    if (result.success) {
+      window.location.href = "/";
+    }
   } catch (error) {
     console.error(error);
     alert("Failed to submit application.");

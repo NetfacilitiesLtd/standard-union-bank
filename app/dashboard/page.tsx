@@ -6,9 +6,11 @@ import { getCurrentCustomer } from "@/lib/currentCustomer";
 
 export default async function DashboardPage() {
   const customer = await getCurrentCustomer();
-
+const fullName = `${customer.application.firstName} ${customer.application.lastName}`;
   return (
-    <div className="space-y-8">
+  <div className="space-y-8">
+
+    
   <BalanceCards customer={customer} />
 
   <PendingTransfers customerId={customer.id} />

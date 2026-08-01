@@ -101,9 +101,59 @@ export default async function CustomerDetails({
         </table>
       </div>
 
-      <TransactionHistory
-        transactions={customer.transactions}
-      />
+      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
+  <h2 className="text-xl font-semibold mb-6">
+    Supporting Documents
+  </h2>
+
+  <div className="grid md:grid-cols-2 gap-6">
+
+    <div>
+      <p className="text-sm text-slate-500 mb-2">
+        Passport Photograph
+      </p>
+
+      {customer.application.passportPhoto ? (
+        <a
+          href={customer.application.passportPhoto}
+          target="_blank"
+          className="text-blue-600 hover:underline"
+        >
+          View Passport Photo
+        </a>
+      ) : (
+        <p className="text-red-500">
+          No passport uploaded.
+        </p>
+      )}
+    </div>
+
+    <div>
+      <p className="text-sm text-slate-500 mb-2">
+        Government ID
+      </p>
+
+      {customer.application.governmentId ? (
+        <a
+          href={customer.application.governmentId}
+          target="_blank"
+          className="text-blue-600 hover:underline"
+        >
+          View Government ID
+        </a>
+      ) : (
+        <p className="text-red-500">
+          No government ID uploaded.
+        </p>
+      )}
+    </div>
+
+  </div>
+</div>
+
+<TransactionHistory
+  transactions={customer.transactions}
+/>
     </div>
   );
 }
