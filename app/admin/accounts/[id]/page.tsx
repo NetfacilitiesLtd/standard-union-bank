@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { updateAccountStatus } from "@/lib/actions/customer";
+import DeleteCustomerButton from "@/components/admin/DeleteCustomerButton";
 export default async function ManageAccountPage({
   params,
 }: {
@@ -137,9 +138,7 @@ export default async function ManageAccountPage({
   </button>
 </form>
 
-  <button className="bg-orange-600 hover:bg-orange-700 text-white px-6 py-3 rounded-xl font-medium transition">
-    Suspend Account
-  </button>
+  <DeleteCustomerButton customerId={customer.id} />
 
 </div>
 
