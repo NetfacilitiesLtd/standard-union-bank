@@ -1,0 +1,106 @@
+"use server";
+
+import { prisma } from "@/lib/prisma";
+import { getCurrentCustomer } from "@/lib/currentCustomer";
+import bcrypt from "bcryptjs";
+import { redirect } from "next/navigation";
+
+export async function updatePassword(formData: FormData) {
+  const currentPassword = formData.get("currentPassword") as string;
+  const newPassword = formData.get("newPassword") as string;
+  const confirmPassword = formData.get("confirmPassword") as string;
+
+  if (!currentPassword || !newPassword || !confirmPassword) {
+    throw new Error("Please fill in all password fields.");
+  }
+
+  if (newPassword !== confirmPassword) {
+    throw new Error("New passwords do not match.");
+  }
+
+  const customer = await getCurrentCustomer();
+
+  const application = await prisma.application.findUnique({
+    where: {
+      id: customer.applicationId,
+    },
+  });
+
+  if (!application) {
+    throw new Error("Customer not found.");
+  }
+
+  const passwordMatches = await bcrypt.compare(
+    currentPassword,
+    application.password
+  );
+
+  if (!passwordMatches) {
+    throw new Error("Current password is incorrect.");
+  }
+
+  const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+  await prisma.application.update({
+    where: {
+      id: application.id,
+    },
+    data: {
+      password: hashedPassword,
+    },
+  });
+
+  redirect("/dashboard/settings?success=password");
+}
+
+export async function updatePin(formData: FormData) {
+  const currentPin = formData.get("currentPin") as string;
+  const newPin = formData.get("newPin") as string;
+  const confirmPin = formData.get("confirmPin") as string;
+
+  if (!currentPin || !newPin || !confirmPin) {
+    throw new Error("Please fill in all PIN fields.");
+  }
+
+  if (newPin !== confirmPin) {
+    throw new Error("New PINs do not match.");
+  }
+
+  if (!/^\d{6}$/.test(newPin)) {
+    throw new Error("PIN must be exactly 6 digits.");
+  }
+
+  const customer = await getCurrentCustomer();
+
+  const application = await prisma.application.findUnique({
+    where: {
+      id: customer.applicationId,
+    },
+  });
+
+  if (!application) {
+    throw new Error("Customer not found.");
+  }
+
+  const pinMatches = await bcrypt.compare(
+    currentPin,
+    application.pin
+  );
+
+  if (!pinMatches) {
+    throw new Error("Current PIN is incorrect.");
+  }
+
+  const hashedPin = await bcrypt.hash(newPin, 10);
+
+  await prisma.application.update({
+    where: {
+      id: application.id,
+    },
+    data: {
+      pin: hashedPin,
+    },
+  });
+
+  redirect("/dashboard/settings?success=pin");
+}
