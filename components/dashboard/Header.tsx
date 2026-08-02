@@ -1,5 +1,5 @@
 "use client";
-
+import Link from "next/link";
 import {
   Bell,
   Search,
@@ -10,15 +10,19 @@ type HeaderProps = {
   customer: {
     accountNumber: string;
     application: {
-  firstName: string;
-  lastName: string;
-  accountType: string;
-  passportPhoto: string | null;
-};
+      firstName: string;
+      lastName: string;
+      accountType: string;
+      passportPhoto: string | null;
+    };
   };
+  unreadNotifications: number;
 };
 
-export default function Header({ customer }: HeaderProps) {
+export default function Header({
+  customer,
+  unreadNotifications,
+}: HeaderProps) {
   const fullName = `${customer.application.firstName} ${customer.application.lastName}`;
 
   return (
@@ -54,10 +58,14 @@ export default function Header({ customer }: HeaderProps) {
             />
           </div>
 
-          <button className="relative w-12 h-12 rounded-xl bg-slate-100 hover:bg-slate-200 transition flex items-center justify-center">
-            <Bell size={20} />
-            <span className="absolute top-3 right-3 w-2.5 h-2.5 bg-red-600 rounded-full"></span>
-          </button>
+          <Link href="/dashboard/notifications">
+  <button className="relative w-12 h-12 rounded-xl bg-slate-100 hover:bg-slate-200 transition flex items-center justify-center">
+    <Bell size={20} />
+    {unreadNotifications > 0 && (
+  <span className="absolute top-3 right-3 w-2.5 h-2.5 bg-red-600 rounded-full"></span>
+)}
+  </button>
+</Link>
 
           <button className="flex items-center gap-3 bg-slate-100 rounded-xl px-4 py-2">
 
