@@ -5,15 +5,19 @@ import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 
-export default function Navbar() {
+export default function Navbar({
+  showLogo = true,
+}: {
+  showLogo?: boolean;
+}) {
   const [isOpen, setIsOpen] = useState(false);
 
   const navLinks = [
-    { name: "Home", href: "#home" },
-    { name: "Personal Banking", href: "#personal" },
-    { name: "Business Banking", href: "#business" },
-    { name: "About Us", href: "#about" },
-    { name: "Contact", href: "#contact" },
+    { name: "Home", href: "/#home" },
+    { name: "Personal Banking", href: "/#personal" },
+{ name: "Business Banking", href: "/#business" },
+{ name: "About Us", href: "/#about" },
+{ name: "Contact", href: "/contact" },
   ];
 
   return (
@@ -24,17 +28,19 @@ export default function Navbar() {
 
           {/* Logo */}
 
-          <Link href="/" className="flex items-center">
+{showLogo && (
+  <Link href="/" className="flex items-center">
 
-            <Image
-              src="/logos/logo.png"
-              alt="Standard Union Bank"
-              width={170}
-              height={48}
-              priority
-            />
+    <Image
+      src="/logos/logo.png"
+      alt="Standard Union Bank"
+      width={170}
+      height={48}
+      priority
+    />
 
-          </Link>
+  </Link>
+)}
 
           {/* Desktop Navigation */}
 

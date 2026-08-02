@@ -74,9 +74,9 @@ export default function Footer() {
 
             <div className="flex flex-col gap-4 text-slate-400">
 
-              <Link href="/open-account" className="hover:text-white transition">
-                Open an Account
-              </Link>
+              <Link href="/apply" className="hover:text-white transition">
+  Open an Account
+</Link>
 
               <Link href="/login" className="hover:text-white transition">
                 Internet Banking
@@ -112,8 +112,11 @@ export default function Footer() {
                 />
 
                 <span>
-                  United Kingdom
-                </span>
+  33 St James's Square<br />
+  St James's<br />
+  London SW1Y 4JS<br />
+  England
+</span>
 
               </div>
 
@@ -125,8 +128,9 @@ export default function Footer() {
                 />
 
                 <span>
-                  +44 XX XXXX XXXX
-                </span>
+  +44 79 536 23468<br />
+  +44 73 554 53466
+</span>
 
               </div>
 
