@@ -15,8 +15,8 @@ export async function updatePassword(formData: FormData) {
   }
 
   if (newPassword !== confirmPassword) {
-    throw new Error("New passwords do not match.");
-  }
+  redirect("/dashboard/settings?error=password-mismatch");
+}
 
   const customer = await getCurrentCustomer();
 
@@ -36,8 +36,8 @@ export async function updatePassword(formData: FormData) {
   );
 
   if (!passwordMatches) {
-    throw new Error("Current password is incorrect.");
-  }
+  redirect("/dashboard/settings?error=wrong-password");
+}
 
   const hashedPassword = await bcrypt.hash(newPassword, 10);
 
@@ -63,12 +63,12 @@ export async function updatePin(formData: FormData) {
   }
 
   if (newPin !== confirmPin) {
-    throw new Error("New PINs do not match.");
-  }
+  redirect("/dashboard/settings?error=pin-mismatch");
+}
 
   if (!/^\d{6}$/.test(newPin)) {
-    throw new Error("PIN must be exactly 6 digits.");
-  }
+  redirect("/dashboard/settings?error=invalid-pin");
+}
 
   const customer = await getCurrentCustomer();
 
@@ -88,8 +88,8 @@ export async function updatePin(formData: FormData) {
   );
 
   if (!pinMatches) {
-    throw new Error("Current PIN is incorrect.");
-  }
+  redirect("/dashboard/settings?error=wrong-pin");
+}
 
   const hashedPin = await bcrypt.hash(newPin, 10);
 

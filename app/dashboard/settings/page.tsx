@@ -4,11 +4,12 @@ export default async function SettingsPage({
   searchParams,
 }: {
   searchParams: Promise<{
-    success?: string;
-  }>;
+  success?: string;
+  error?: string;
+}>;
 }) {
   const customer = await getCurrentCustomer();
-const { success } = await searchParams;
+const { success, error } = await searchParams;
   return (
     <div className="space-y-8">
 
@@ -29,6 +30,33 @@ const { success } = await searchParams;
 {success === "pin" && (
   <div className="mt-6 rounded-xl border border-green-200 bg-green-50 px-5 py-4 text-green-700 font-medium">
     ✅ PIN updated successfully.
+  </div>
+)}
+{error === "wrong-password" && (
+  <div className="mt-6 rounded-xl border border-red-200 bg-red-50 px-5 py-4 text-red-700 font-medium">
+    ❌ Current password is incorrect.
+  </div>
+)}
+{error === "password-mismatch" && (
+  <div className="mt-6 rounded-xl border border-red-200 bg-red-50 px-5 py-4 text-red-700 font-medium">
+    ❌ New passwords do not match.
+  </div>
+)}
+{error === "wrong-pin" && (
+  <div className="mt-6 rounded-xl border border-red-200 bg-red-50 px-5 py-4 text-red-700 font-medium">
+    ❌ Current PIN is incorrect.
+  </div>
+)}
+
+{error === "pin-mismatch" && (
+  <div className="mt-6 rounded-xl border border-red-200 bg-red-50 px-5 py-4 text-red-700 font-medium">
+    ❌ New PINs do not match.
+  </div>
+)}
+
+{error === "invalid-pin" && (
+  <div className="mt-6 rounded-xl border border-red-200 bg-red-50 px-5 py-4 text-red-700 font-medium">
+    ❌ PIN must be exactly 6 digits.
   </div>
 )}
       </div>
