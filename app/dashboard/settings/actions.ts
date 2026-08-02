@@ -1,5 +1,5 @@
 "use server";
-
+import { createNotification } from "@/lib/notifications";
 import { prisma } from "@/lib/prisma";
 import { getCurrentCustomer } from "@/lib/currentCustomer";
 import bcrypt from "bcryptjs";
@@ -49,7 +49,12 @@ export async function updatePassword(formData: FormData) {
       password: hashedPassword,
     },
   });
-
+await createNotification({
+  customerId: customer.id,
+  title: "Password Changed",
+  message:
+    "Your online banking password was changed successfully.",
+});
   redirect("/dashboard/settings?success=password");
 }
 
@@ -101,6 +106,11 @@ export async function updatePin(formData: FormData) {
       pin: hashedPin,
     },
   });
-
+await createNotification({
+  customerId: customer.id,
+  title: "PIN Changed",
+  message:
+    "Your transaction PIN was changed successfully.",
+});
   redirect("/dashboard/settings?success=pin");
 }

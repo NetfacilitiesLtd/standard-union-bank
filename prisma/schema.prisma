@@ -49,6 +49,7 @@ model Customer {
   application            Application             @relation(fields: [applicationId], references: [id])
   internationalTransfers InternationalTransfer[]
   transactions           Transaction[]
+  notifications          Notification[]
 }
 
 model Transaction {
@@ -96,4 +97,15 @@ model Admin {
   status    String   @default("Active")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Notification {
+  id         String   @id @default(cuid())
+  customerId String
+  title      String
+  message    String
+  isRead     Boolean  @default(false)
+  createdAt  DateTime @default(now())
+
+  customer Customer @relation(fields: [customerId], references: [id])
 }
