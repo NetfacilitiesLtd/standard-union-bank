@@ -1,6 +1,7 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
+import { createNotification } from "@/lib/notifications";
 import { redirect } from "next/navigation";
 
 export async function updateCustomer(formData: FormData) {
@@ -105,6 +106,11 @@ export async function depositMoney(formData: FormData) {
   },
 }),
 ]);
+await createNotification({
+  customerId,
+  title: "Deposit Received",
+  message: `${customer.application.preferredCurrency} ${amount.toLocaleString()} has been credited to your account.`,
+});
   redirect(`/admin/customers/${customerId}`);
 }
 
@@ -165,6 +171,11 @@ export async function withdrawMoney(formData: FormData) {
   },
 }),
 ]);
+await createNotification({
+  customerId,
+  title: "Withdrawal Successful",
+  message: `${customer.application.preferredCurrency} ${amount.toLocaleString()} has been debited from your account.`,
+});
   redirect(`/admin/customers/${customerId}`);
 }
 
