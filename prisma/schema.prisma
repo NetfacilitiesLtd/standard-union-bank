@@ -48,23 +48,22 @@ model Customer {
   updatedAt              DateTime                @updatedAt
   application            Application             @relation(fields: [applicationId], references: [id])
   internationalTransfers InternationalTransfer[]
-  transactions           Transaction[]
   notifications          Notification[]
+  transactions           Transaction[]
 }
 
 model Transaction {
   id              String   @id @default(cuid())
   customerId      String
-  reference       String?  @unique
   type            String
   amount          Float
-  currency        String
-  status          String   @default("Completed")
   description     String?
-  transactionDate DateTime @default(now())
   createdAt       DateTime @default(now())
-
-  customer Customer @relation(fields: [customerId], references: [id])
+  currency        String
+  reference       String?  @unique
+  status          String   @default("Completed")
+  transactionDate DateTime @default(now())
+  customer        Customer @relation(fields: [customerId], references: [id])
 }
 
 model InternationalTransfer {
@@ -91,12 +90,12 @@ model InternationalTransfer {
 model Admin {
   id        String   @id @default(cuid())
   fullName  String
-  username  String   @unique
   password  String
   role      String   @default("Administrator")
   status    String   @default("Active")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  username  String   @unique
 }
 
 model Notification {
@@ -106,6 +105,5 @@ model Notification {
   message    String
   isRead     Boolean  @default(false)
   createdAt  DateTime @default(now())
-
-  customer Customer @relation(fields: [customerId], references: [id])
+  customer   Customer @relation(fields: [customerId], references: [id])
 }

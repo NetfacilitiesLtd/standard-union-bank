@@ -30,7 +30,7 @@ export default function NotificationBadge({
 
     fetchUnreadNotifications();
 
-    const interval = setInterval(fetchUnreadNotifications, 5000);
+    const interval = setInterval(fetchUnreadNotifications, 10000);
 
     return () => clearInterval(interval);
   }, []);
