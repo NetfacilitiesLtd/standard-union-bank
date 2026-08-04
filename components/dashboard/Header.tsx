@@ -5,7 +5,7 @@ import {
   Search,
   ChevronDown,
 } from "lucide-react";
-
+import NotificationBadge from "./NotificationBadge";
 type HeaderProps = {
   customer: {
     accountNumber: string;
@@ -61,9 +61,7 @@ export default function Header({
           <Link href="/dashboard/notifications">
   <button className="relative w-12 h-12 rounded-xl bg-slate-100 hover:bg-slate-200 transition flex items-center justify-center">
     <Bell size={20} />
-    {unreadNotifications > 0 && (
-  <span className="absolute top-3 right-3 w-2.5 h-2.5 bg-red-600 rounded-full"></span>
-)}
+    <NotificationBadge initialCount={unreadNotifications} />
   </button>
 </Link>
 
