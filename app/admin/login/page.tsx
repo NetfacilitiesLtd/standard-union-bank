@@ -36,7 +36,7 @@ export default function AdminLoginPage() {
     <div className="min-h-screen grid lg:grid-cols-2">
       <div className="hidden lg:block relative">
         <Image
-          src="/images/bank-hero.jpg"
+          src="/images/hero-bg.jpg"
           alt="Bank"
           fill
           className="object-cover"

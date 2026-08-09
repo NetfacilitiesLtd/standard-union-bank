@@ -50,11 +50,13 @@ export default function LoginPage() {
     <div className="min-h-screen grid lg:grid-cols-2">
       <div className="hidden lg:block relative">
         <Image
-          src="/images/bank-hero.jpg"
-          alt="Bank"
-          fill
-          className="object-cover"
-        />
+  src="/images/hero-bg.jpg"
+  alt="Bank"
+  fill
+  priority
+  sizes="(max-width: 768px) 100vw, 50vw"
+  className="object-cover"
+/>
 
         <div className="absolute inset-0 bg-blue-900/70 flex items-center justify-center">
           <div className="text-center text-white px-10">
