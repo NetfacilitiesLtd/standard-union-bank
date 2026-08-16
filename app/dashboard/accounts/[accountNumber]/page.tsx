@@ -129,13 +129,13 @@ export default async function AccountDetailsPage() {
 
         <div className="grid md:grid-cols-2 gap-6 mt-8">
 
-          <button className="bg-red-600 hover:bg-red-700 text-white rounded-2xl p-6 flex items-center justify-center gap-3 font-semibold transition">
-
-            <ArrowLeftRight size={22} />
-
-            Transfer Money
-
-          </button>
+          <Link
+  href="/dashboard/transfers"
+  className="bg-red-600 hover:bg-red-700 text-white rounded-2xl p-6 flex items-center justify-center gap-3 font-semibold transition"
+>
+  <ArrowLeftRight size={22} />
+  Transfer Money
+</Link>
 
           <button className="bg-blue-600 hover:bg-blue-700 text-white rounded-2xl p-6 flex items-center justify-center gap-3 font-semibold transition">
 
