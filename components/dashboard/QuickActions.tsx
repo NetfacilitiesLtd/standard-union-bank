@@ -16,13 +16,13 @@ const actions = [
     icon: ArrowLeftRight,
     color: "bg-red-600",
   },
-  {
-    title: "Statements",
-    description: "Download statements",
-    href: "/dashboard/statements",
-    icon: FileText,
-    color: "bg-amber-500",
-  },
+ {
+  title: "Statements",
+  description: "Download statements",
+  href: "/api/statement",
+  icon: FileText,
+  color: "bg-amber-500",
+},
 ];
 
 export default function QuickActions({

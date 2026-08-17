@@ -35,11 +35,13 @@ export default async function TransactionsPage() {
           </p>
         </div>
 
-        <button className="mt-5 lg:mt-0 bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-xl flex items-center gap-3 transition">
-          <Download size={20} />
-
-          Download Statement
-        </button>
+        <a
+  href="/api/statement"
+  className="mt-5 lg:mt-0 bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-xl flex items-center gap-3 transition"
+>
+  <Download size={20} />
+  Download Statement
+</a>
       </div>
 
       {/* Search */}

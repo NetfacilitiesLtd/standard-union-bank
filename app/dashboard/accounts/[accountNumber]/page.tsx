@@ -137,13 +137,13 @@ export default async function AccountDetailsPage() {
   Transfer Money
 </Link>
 
-          <button className="bg-blue-600 hover:bg-blue-700 text-white rounded-2xl p-6 flex items-center justify-center gap-3 font-semibold transition">
-
-            <FileText size={22} />
-
-            Download Statement
-
-          </button>
+          <a
+  href="/api/statement"
+  className="bg-blue-600 hover:bg-blue-700 text-white rounded-2xl p-6 flex items-center justify-center gap-3 font-semibold transition"
+>
+  <FileText size={22} />
+  Download Statement
+</a>
 
         </div>
 
