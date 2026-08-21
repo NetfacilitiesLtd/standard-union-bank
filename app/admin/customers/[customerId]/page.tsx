@@ -116,7 +116,7 @@ export default async function CustomerDetails({
       {customer.application.passportPhoto ? (
   <div>
     <a
-      href={`/api/customer/passport-photo?customerId=${customer.id}`}
+      href={`/api/admin/applications/passport-photo?applicationId=${customer.application.id}`}
       target="_blank"
       rel="noopener noreferrer"
       className="text-blue-600 hover:underline"

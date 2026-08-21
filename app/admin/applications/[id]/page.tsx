@@ -96,12 +96,12 @@ export default async function ApplicationDetailsPage({
 
       {application.passportPhoto ? (
   <a
-    href={application.passportPhoto}
+    href={`/api/admin/applications/passport-photo?applicationId=${application.id}`}
     target="_blank"
     rel="noopener noreferrer"
   >
     <img
-      src={application.passportPhoto}
+      src={`/api/admin/applications/passport-photo?applicationId=${application.id}`}
       alt="Passport Photo"
       className="w-40 h-48 object-cover rounded-xl border border-slate-300 hover:opacity-90 transition"
     />
