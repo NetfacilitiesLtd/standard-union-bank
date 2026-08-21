@@ -14,9 +14,13 @@ export async function GET() {
       });
     }
 
-    const pathname = passportPhoto.startsWith("http")
-      ? new URL(passportPhoto).pathname
-      : passportPhoto;
+    let pathname: string;
+
+    if (passportPhoto.startsWith("http")) {
+      pathname = new URL(passportPhoto).pathname.replace(/^\/+/, "");
+    } else {
+      pathname = passportPhoto.replace(/^\/+/, "");
+    }
 
     const result = await get(pathname, {
       access: "private",
