@@ -48,15 +48,12 @@ export async function GET(request: Request) {
       });
     }
 
-    const passportPhoto = customer.application.passportPhoto;
-
-    const pathname = passportPhoto.startsWith("http")
-      ? new URL(passportPhoto).pathname.replace(/^\/+/, "")
-      : passportPhoto.replace(/^\/+/, "");
-
-    const result = await get(pathname, {
-      access: "private",
-    });
+    const result = await get(
+      customer.application.passportPhoto,
+      {
+        access: "private",
+      }
+    );
 
     if (!result || result.statusCode !== 200) {
       return new NextResponse("Passport photo not found", {
@@ -67,7 +64,7 @@ export async function GET(request: Request) {
     return new NextResponse(result.stream, {
       status: 200,
       headers: {
-        "Content-Type": result.blob.contentType || "image/jpeg",
+        "Content-Type": result.blob.contentType,
         "Cache-Control": "private, no-store",
         "X-Content-Type-Options": "nosniff",
       },

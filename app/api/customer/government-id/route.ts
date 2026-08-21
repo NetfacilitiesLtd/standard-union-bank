@@ -48,15 +48,12 @@ export async function GET(request: Request) {
       });
     }
 
-    const governmentId = customer.application.governmentId;
-
-    const pathname = governmentId.startsWith("http")
-      ? new URL(governmentId).pathname.replace(/^\/+/, "")
-      : governmentId.replace(/^\/+/, "");
-
-    const result = await get(pathname, {
-      access: "private",
-    });
+    const result = await get(
+  customer.application.governmentId,
+  {
+    access: "private",
+  }
+);
 
     if (!result || result.statusCode !== 200) {
       return new NextResponse("Government ID not found", {
