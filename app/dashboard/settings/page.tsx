@@ -68,11 +68,7 @@ const { success, error } = await searchParams;
           <div className="flex justify-center">
 
             <img
-  src={
-    customer.application.passportPhoto
-      ? "/api/customer/passport-photo"
-      : "/images/default-avatar.png"
-  }
+  src="/api/customer/passport-photo"
   alt="Passport"
   className="w-40 h-40 rounded-full object-cover border-4 border-red-600"
 />

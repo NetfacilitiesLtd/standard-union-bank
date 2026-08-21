@@ -69,10 +69,10 @@ export default function Header({
 
             {customer.application.passportPhoto ? (
   <img
-    src={customer.application.passportPhoto}
-    alt={fullName}
-    className="w-16 h-16 rounded-full object-cover border-2 border-red-600"
-  />
+  src="/api/customer/passport-photo"
+  alt={fullName}
+  className="w-16 h-16 rounded-full object-cover border-2 border-red-600"
+/>
 ) : (
   <div className="w-11 h-11 rounded-full bg-red-600 flex items-center justify-center text-white font-bold text-lg">
     {customer.application.firstName.charAt(0)}
