@@ -42,24 +42,24 @@ export async function GET(request: Request) {
       },
     });
 
-    if (!customer?.application?.passportPhoto) {
-      return new NextResponse("Passport photo not found", {
+    if (!customer?.application?.governmentId) {
+      return new NextResponse("Government ID not found", {
         status: 404,
       });
     }
 
-    const passportPhoto = customer.application.passportPhoto;
+    const governmentId = customer.application.governmentId;
 
-    const pathname = passportPhoto.startsWith("http")
-      ? new URL(passportPhoto).pathname.replace(/^\/+/, "")
-      : passportPhoto.replace(/^\/+/, "");
+    const pathname = governmentId.startsWith("http")
+      ? new URL(governmentId).pathname.replace(/^\/+/, "")
+      : governmentId.replace(/^\/+/, "");
 
     const result = await get(pathname, {
       access: "private",
     });
 
     if (!result || result.statusCode !== 200) {
-      return new NextResponse("Passport photo not found", {
+      return new NextResponse("Government ID not found", {
         status: 404,
       });
     }
@@ -67,15 +67,16 @@ export async function GET(request: Request) {
     return new NextResponse(result.stream, {
       status: 200,
       headers: {
-        "Content-Type": result.blob.contentType || "image/jpeg",
+        "Content-Type":
+          result.blob.contentType || "application/octet-stream",
         "Cache-Control": "private, no-store",
         "X-Content-Type-Options": "nosniff",
       },
     });
   } catch (error) {
-    console.error("Admin passport photo error:", error);
+    console.error("Admin government ID error:", error);
 
-    return new NextResponse("Unable to load passport photo", {
+    return new NextResponse("Unable to load government ID", {
       status: 500,
     });
   }

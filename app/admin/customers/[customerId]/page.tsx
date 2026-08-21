@@ -114,18 +114,21 @@ export default async function CustomerDetails({
       </p>
 
       {customer.application.passportPhoto ? (
-        <a
-          href={customer.application.passportPhoto}
-          target="_blank"
-          className="text-blue-600 hover:underline"
-        >
-          View Passport Photo
-        </a>
-      ) : (
-        <p className="text-red-500">
-          No passport uploaded.
-        </p>
-      )}
+  <div>
+    <a
+      href={`/api/customer/passport-photo?customerId=${customer.id}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-blue-600 hover:underline"
+    >
+      View Passport Photo
+    </a>
+  </div>
+) : (
+  <p className="text-red-500">
+    No passport uploaded.
+  </p>
+)}
     </div>
 
     <div>
@@ -135,7 +138,7 @@ export default async function CustomerDetails({
 
       {customer.application.governmentId ? (
         <a
-          href={customer.application.governmentId}
+          href={`/api/customer/government-id?customerId=${customer.id}`}
           target="_blank"
           className="text-blue-600 hover:underline"
         >
