@@ -1,6 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import { getCurrentCustomer } from "@/lib/currentCustomer";
 import { KeyRound, Lock } from "lucide-react";
+import DeleteNotificationButton from "@/components/customer/DeleteNotificationButton";
+
 export default async function NotificationsPage() {
   const customer = await getCurrentCustomer();
 
@@ -12,15 +14,17 @@ export default async function NotificationsPage() {
       createdAt: "desc",
     },
   });
-await prisma.notification.updateMany({
-  where: {
-    customerId: customer.id,
-    isRead: false,
-  },
-  data: {
-    isRead: true,
-  },
-});
+
+  await prisma.notification.updateMany({
+    where: {
+      customerId: customer.id,
+      isRead: false,
+    },
+    data: {
+      isRead: true,
+    },
+  });
+
   return (
     <div className="space-y-6">
       <h1 className="text-3xl font-bold text-slate-900">
@@ -49,17 +53,23 @@ await prisma.notification.updateMany({
                 key={notification.id}
                 className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
               >
-                <div className="flex items-center gap-3">
-  {notification.title === "Password Changed" ? (
-    <Lock className="h-5 w-5 text-red-600" />
-  ) : notification.title === "PIN Changed" ? (
-    <KeyRound className="h-5 w-5 text-red-600" />
-  ) : null}
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex items-center gap-3">
+                    {notification.title === "Password Changed" ? (
+                      <Lock className="h-5 w-5 shrink-0 text-red-600" />
+                    ) : notification.title === "PIN Changed" ? (
+                      <KeyRound className="h-5 w-5 shrink-0 text-red-600" />
+                    ) : null}
 
-  <h2 className="text-lg font-semibold text-slate-900">
-    {notification.title}
-  </h2>
-</div>
+                    <h2 className="text-lg font-semibold text-slate-900">
+                      {notification.title}
+                    </h2>
+                  </div>
+
+                  <DeleteNotificationButton
+                    notificationId={notification.id}
+                  />
+                </div>
 
                 <p className="mt-2 text-slate-600">
                   {notification.message}
