@@ -142,7 +142,7 @@ export default function Footer() {
                 />
 
                 <span>
-                  info@standardunionbank.com
+                  info@stanub.com
                 </span>
 
               </div>

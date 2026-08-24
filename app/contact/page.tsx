@@ -105,7 +105,7 @@ export default function ContactPage() {
                   </h3>
 
                   <p className="text-slate-600 mt-2">
-                    info@standardunionbank.com
+                    info@stanub.com
                   </p>
 
                 </div>
