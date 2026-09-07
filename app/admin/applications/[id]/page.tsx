@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
-import { approveApplication } from "../../actions";
-
+import { approveApplication, rejectApplication } from "../../actions";
 interface PageProps {
   params: Promise<{
     id: string;
@@ -153,9 +152,19 @@ export default async function ApplicationDetailsPage({
           </button>
         </form>
 
-        <button className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold">
-          Reject Application
-        </button>
+        <form
+  action={async () => {
+    "use server";
+    await rejectApplication(application.id);
+  }}
+>
+  <button
+    type="submit"
+    className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold"
+  >
+    Reject Application
+  </button>
+</form>
       </div>
     </div>
   );

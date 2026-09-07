@@ -77,12 +77,29 @@ export async function approveApplication(applicationId: string) {
     revalidatePath(`/admin/applications/${applicationId}`);
     revalidatePath("/admin/customers");
 
-    redirect("/admin");
+    
   } catch (error) {
     console.error("Approval failed:", error);
   }
+  redirect("/admin");
 }
 
 export async function rejectApplication(applicationId: string) {
   console.log("Rejecting application:", applicationId);
+
+  await prisma.application.update({
+    where: {
+      id: applicationId,
+    },
+    data: {
+      status: "Rejected",
+    },
+  });
+
+  console.log("Application rejected successfully.");
+
+  revalidatePath("/admin");
+  revalidatePath(`/admin/applications/${applicationId}`);
+
+  redirect("/admin");
 }
