@@ -25,7 +25,11 @@ export async function deleteCustomer(customerId: string) {
       customerId,
     },
   });
-
+await prisma.notification.deleteMany({
+  where: {
+    customerId,
+  },
+});
   await prisma.customer.delete({
     where: {
       id: customerId,
